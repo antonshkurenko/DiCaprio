@@ -1,7 +1,7 @@
 package oscar.dicaprio;
 
 import com.badlogic.gdx.Game;
-import oscar.dicaprio.screens.MainGameScreen;
+import oscar.dicaprio.ui.screens.MainGameScreen;
 
 public class OscarGame extends Game {
 

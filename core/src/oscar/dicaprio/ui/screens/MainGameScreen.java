@@ -1,6 +1,9 @@
-package oscar.dicaprio.screens;
+package oscar.dicaprio.ui.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import oscar.dicaprio.ui.stages.MainGameStage;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -11,6 +14,12 @@ import com.badlogic.gdx.Screen;
  */
 public class MainGameScreen implements Screen {
 
+  private final MainGameStage mMainGameStage;
+
+  public MainGameScreen() {
+    mMainGameStage = new MainGameStage();
+  }
+
   //region implements Screen
   @Override
   public void show() {
@@ -19,7 +28,12 @@ public class MainGameScreen implements Screen {
 
   @Override
   public void render(float delta) {
+    //Clear the screen
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+    //Update the stage
+    mMainGameStage.draw();
+    mMainGameStage.act(delta);
   }
 
   @Override
