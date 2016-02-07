@@ -44,3 +44,8 @@ task afterEclipseImport(description: "Post processing after project generation",
     printer.print(classpath)
   }
 }
+
+retrolambda {
+  jdk System.getenv("JAVA_HOME")
+  javaVersion JavaVersion.VERSION_1_7
+}

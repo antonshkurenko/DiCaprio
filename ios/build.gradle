@@ -17,3 +17,8 @@ eclipse.project {
     name = appName + "-ios"
     natures 'org.robovm.eclipse.RoboVMNature'
 }
+
+retrolambda {
+  jdk System.getenv("JAVA_HOME")
+  javaVersion JavaVersion.VERSION_1_7
+}
