@@ -5,6 +5,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import oscar.dicaprio.mechanics.box2d.GroundUserData;
+import oscar.dicaprio.mechanics.box2d.RunnerUserData;
 import oscar.dicaprio.utils.Constants;
 
 /**
@@ -16,9 +18,7 @@ import oscar.dicaprio.utils.Constants;
  */
 public class WorldUtils {
 
-
   /**
-   *
    * Physics coords
    *
    * /\ Y
@@ -44,6 +44,8 @@ public class WorldUtils {
     final Body body = world.createBody(bodyDef);
     final PolygonShape shape = new PolygonShape();
 
+    body.setUserData(new GroundUserData());
+
     /**
      *
      * Ground position
@@ -67,6 +69,8 @@ public class WorldUtils {
     final Body body = world.createBody(bodyDef);
     final PolygonShape shape = new PolygonShape();
 
+    body.setUserData(new RunnerUserData());
+
     /**
      * /\
      * |
@@ -79,6 +83,7 @@ public class WorldUtils {
      */
     shape.setAsBox(Constants.RUNNER_WIDTH / 2, Constants.RUNNER_HEIGHT / 2);
     body.createFixture(shape, Constants.RUNNER_DENSITY);
+    body.setGravityScale(Constants.RUNNER_GRAVITY_SCALE); // and this
     body.resetMassData(); // todo(tonyshkurenko), 2/8/16: check this
     shape.dispose();
     return body;

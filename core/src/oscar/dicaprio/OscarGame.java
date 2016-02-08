@@ -5,8 +5,7 @@ import oscar.dicaprio.ui.screens.MainGameScreen;
 
 public class OscarGame extends Game {
 
-  @Override
-  public void create() {
+  @Override public void create() {
     setScreen(new MainGameScreen());
   }
 }
