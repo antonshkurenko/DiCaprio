@@ -42,6 +42,7 @@ public class MainGameStage extends Stage implements ContactListener {
 
   // todo(tonyshkurenko), 2/9/16: aint sure we really need this, think about recreating, and delete global instance
   private Rectangle mScreenRightSide;
+  private Rectangle mScreenLeftSide;
 
   public MainGameStage() {
     setUpWorld();
@@ -81,12 +82,25 @@ public class MainGameStage extends Stage implements ContactListener {
     // Need to get the actual coordinates
     final Vector3 touchPoint = translateScreenToWorldCoordinates(x, y);
 
+    // todo(tonyshkurenko), 2/9/16: use State to handle inputs
     if (rightSideTouched(touchPoint.x, touchPoint.y)) {
       mRunner.jump();
+    } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
+      mRunner.dodge();
     }
 
     return super.touchDown(x, y, pointer, button);
   }
+
+  @Override public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+    if (mRunner.isDodging()) {
+      mRunner.stopDodge();
+    }
+
+    return super.touchUp(screenX, screenY, pointer, button);
+  }
+
   //endregion
 
   //region Implements ContactListener
@@ -119,6 +133,10 @@ public class MainGameStage extends Stage implements ContactListener {
   //region Gesture util functions
   private boolean rightSideTouched(float x, float y) {
     return mScreenRightSide.contains(x, y);
+  }
+
+  private boolean leftSideTouched(float x, float y) {
+    return mScreenLeftSide.contains(x, y);
   }
 
   /**
@@ -156,6 +174,7 @@ public class MainGameStage extends Stage implements ContactListener {
   }
 
   private void setUpTouchControlAreas() {
+    mScreenLeftSide = new Rectangle(0, 0, getCamera().viewportWidth / 2, getCamera().viewportHeight);
     mScreenRightSide =
         new Rectangle(getCamera().viewportWidth / 2, 0, getCamera().viewportWidth / 2,
             getCamera().viewportHeight);

@@ -13,6 +13,10 @@ import oscar.dicaprio.utils.UserDataType;
  */
 public class RunnerUserData extends UserData {
 
+  private final Vector2 mRunningPosition = new Vector2(Constants.RUNNER_X, Constants.RUNNER_Y);
+  private final Vector2 mDodgePosition =
+      new Vector2(Constants.RUNNER_DODGE_X, Constants.RUNNER_DODGE_Y);
+
   private Vector2 mJumpingLinearImpulse;
 
   public RunnerUserData() {
@@ -30,6 +34,19 @@ public class RunnerUserData extends UserData {
 
   public void setJumpingLinearImpulse(Vector2 jumpingLinearImpulse) {
     this.mJumpingLinearImpulse = jumpingLinearImpulse;
+  }
+
+  public float getDodgeAngle() {
+    // In radians
+    return (float) (-90f * (Math.PI / 180f));
+  }
+
+  public Vector2 getRunningPosition() {
+    return mRunningPosition;
+  }
+
+  public Vector2 getDodgePosition() {
+    return mDodgePosition;
   }
   //endregion
 }
