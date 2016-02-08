@@ -58,4 +58,29 @@ public class WorldUtils {
     shape.dispose();
     return body;
   }
+
+  public static Body createRunner(World world) {
+    final BodyDef bodyDef = new BodyDef();
+    bodyDef.type = BodyDef.BodyType.DynamicBody;
+    bodyDef.position.set(new Vector2(Constants.RUNNER_X, Constants.RUNNER_Y));
+
+    final Body body = world.createBody(bodyDef);
+    final PolygonShape shape = new PolygonShape();
+
+    /**
+     * /\
+     * |
+     * |
+     * |     ---
+     * |     | |
+     * |----------Ground position
+     * |
+     * --------------------------->
+     */
+    shape.setAsBox(Constants.RUNNER_WIDTH / 2, Constants.RUNNER_HEIGHT / 2);
+    body.createFixture(shape, Constants.RUNNER_DENSITY);
+    body.resetMassData(); // todo(tonyshkurenko), 2/8/16: check this
+    shape.dispose();
+    return body;
+  }
 }

@@ -24,6 +24,7 @@ public class MainGameStage extends Stage {
 
   private final World mWorld;
   private final Body mGround;
+  private final Body mRunner;
 
   private final OrthographicCamera mCamera;
   private final Box2DDebugRenderer mRenderer;
@@ -33,6 +34,7 @@ public class MainGameStage extends Stage {
   public MainGameStage() {
     mWorld = WorldUtils.createWorld();
     mGround = WorldUtils.createGround(mWorld);
+    mRunner = WorldUtils.createRunner(mWorld);
     mRenderer = new Box2DDebugRenderer();
     mCamera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
     setupCamera();
