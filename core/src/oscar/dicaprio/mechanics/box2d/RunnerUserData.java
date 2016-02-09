@@ -19,7 +19,8 @@ public class RunnerUserData extends UserData {
 
   private Vector2 mJumpingLinearImpulse;
 
-  public RunnerUserData() {
+  public RunnerUserData(float width, float height) {
+    super(width, height);
     mJumpingLinearImpulse = Constants.RUNNER_JUMPING_LINEAR_IMPULSE;
   }
 

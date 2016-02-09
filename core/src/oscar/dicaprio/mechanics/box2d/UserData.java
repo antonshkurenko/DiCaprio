@@ -11,5 +11,13 @@ import oscar.dicaprio.utils.UserDataType;
  */
 public abstract class UserData {
 
+  protected float mWidth;
+  protected float mHeight;
+
+  public UserData(float width, float height) {
+    mWidth = width;
+    mHeight = height;
+  }
+
   public abstract UserDataType getUserDataType();
 }

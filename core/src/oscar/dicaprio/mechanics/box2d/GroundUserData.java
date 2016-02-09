@@ -11,6 +11,10 @@ import oscar.dicaprio.utils.UserDataType;
  */
 public class GroundUserData extends UserData {
 
+  public GroundUserData() {
+    super(0f, 0f); // wtf this tutorial
+  }
+
   @Override public UserDataType getUserDataType() {
     return UserDataType.GROUND;
   }

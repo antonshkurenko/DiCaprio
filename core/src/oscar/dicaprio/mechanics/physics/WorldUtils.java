@@ -5,8 +5,11 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import oscar.dicaprio.mechanics.box2d.EnemyUserData;
 import oscar.dicaprio.mechanics.box2d.GroundUserData;
 import oscar.dicaprio.mechanics.box2d.RunnerUserData;
+import oscar.dicaprio.mechanics.physics.enemies.Enemy;
+import oscar.dicaprio.mechanics.physics.enemies.EnemyGenerator;
 import oscar.dicaprio.utils.Constants;
 
 /**
@@ -69,7 +72,7 @@ public class WorldUtils {
     final Body body = world.createBody(bodyDef);
     final PolygonShape shape = new PolygonShape();
 
-    body.setUserData(new RunnerUserData());
+    body.setUserData(new RunnerUserData(Constants.RUNNER_WIDTH, Constants.RUNNER_HEIGHT));
 
     /**
      * /\
@@ -85,6 +88,27 @@ public class WorldUtils {
     body.createFixture(shape, Constants.RUNNER_DENSITY);
     body.setGravityScale(Constants.RUNNER_GRAVITY_SCALE); // and this
     body.resetMassData(); // todo(tonyshkurenko), 2/8/16: check this
+    shape.dispose();
+    return body;
+  }
+
+  public static Body createEnemy(World world) {
+    final Enemy enemyType = new EnemyGenerator().getRandomEnemy();
+
+    final BodyDef bodyDef = new BodyDef();
+    bodyDef.type = BodyDef.BodyType.KinematicBody;
+    bodyDef.position.set(new Vector2(enemyType.getX(), enemyType.getY()));
+
+    final Body body = world.createBody(bodyDef);
+    final PolygonShape shape = new PolygonShape();
+
+    final float enemyWidth = enemyType.getWidth();
+    final float enemyHeight = enemyType.getHeight();
+
+    body.setUserData(new EnemyUserData(enemyWidth, enemyHeight));
+    shape.setAsBox(enemyWidth / 2, enemyHeight / 2);
+    body.createFixture(shape, enemyType.getDensity());
+    body.resetMassData();
     shape.dispose();
     return body;
   }
