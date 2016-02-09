@@ -20,4 +20,14 @@ public abstract class UserData {
   }
 
   public abstract UserDataType getUserDataType();
+
+  //region Getters and setters
+  public float getWidth() {
+    return mWidth;
+  }
+
+  public float getHeight() {
+    return mHeight;
+  }
+  //endregion
 }

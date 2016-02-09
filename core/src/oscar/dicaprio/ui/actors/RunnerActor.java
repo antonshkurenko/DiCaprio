@@ -14,6 +14,7 @@ public class RunnerActor extends BaseActor {
 
   private boolean mJumping;
   private boolean mDodging;
+  private boolean mHit;
 
   public RunnerActor(Body body) {
     super(body);
@@ -26,7 +27,7 @@ public class RunnerActor extends BaseActor {
   // todo(tonyshkurenko), 2/9/16: after end of the tutorial rework this to State pattern
   public void jump() {
 
-    if (!(mJumping || mDodging)) {
+    if (!(mJumping || mDodging || mHit)) {
       mBody.applyLinearImpulse(getUserData().getJumpingLinearImpulse(), mBody.getWorldCenter(),
           true);
       mJumping = true;
@@ -38,7 +39,7 @@ public class RunnerActor extends BaseActor {
   }
 
   public void dodge() {
-    if (!mJumping) {
+    if (!(mJumping || mHit)) {
       mBody.setTransform(getUserData().getDodgePosition(), getUserData().getDodgeAngle());
       mDodging = true;
     }
@@ -46,10 +47,21 @@ public class RunnerActor extends BaseActor {
 
   public void stopDodge() {
     mDodging = false;
-    mBody.setTransform(getUserData().getRunningPosition(), 0f);
+    if (!mHit) {
+      mBody.setTransform(getUserData().getRunningPosition(), 0f);
+    }
   }
 
   public boolean isDodging() {
     return mDodging;
+  }
+
+  public void hit() {
+    mBody.applyAngularImpulse(getUserData().getHitAngularImpulse(), true);
+    mHit = true;
+  }
+
+  public boolean isHit() {
+    return mHit;
   }
 }

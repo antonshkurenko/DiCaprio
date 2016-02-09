@@ -17,19 +17,27 @@ public final class EnemyGenerator {
    * todo(tonyshkurenko), 2/9/16: Hope I'll invent something better
    */
 
-  private final List<EnemyFactory> mEnemyFactories = new ArrayList<EnemyFactory>() {{
+  private final List<EnemyFactory> mEnemyFactories = new ArrayList<>();
+
+  private final Random mRandom = new Random();
+
+  public EnemyGenerator() {
+    initFactories();
+  }
+
+  public Enemy getRandomEnemy() {
+    final EnemyFactory randomFactory = mEnemyFactories.get(mRandom.nextInt(mEnemyFactories.size()));
+    return randomFactory.getEnemy();
+  }
+
+  //region Init methods
+  private void initFactories() {
     mEnemyFactories.add(new SmallEnemyFactory());
     mEnemyFactories.add(new LongEnemyFactory());
     mEnemyFactories.add(new WideEnemyFactory());
     mEnemyFactories.add(new BigEnemyFactory());
     mEnemyFactories.add(new SmallFlyingEnemyFactory());
     mEnemyFactories.add(new WideFlyingEnemyFactory());
-  }};
-
-  private final Random mRandom = new Random();
-
-  public Enemy getRandomEnemy() {
-    final EnemyFactory randomFactory = mEnemyFactories.get(mRandom.nextInt(mEnemyFactories.size()));
-    return randomFactory.getEnemy();
   }
+  //endregion
 }

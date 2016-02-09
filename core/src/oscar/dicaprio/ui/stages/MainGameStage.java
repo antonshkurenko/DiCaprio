@@ -12,8 +12,11 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import oscar.dicaprio.mechanics.physics.BodyUtils;
 import oscar.dicaprio.mechanics.physics.WorldUtils;
+import oscar.dicaprio.mechanics.physics.enemies.Enemy;
+import oscar.dicaprio.ui.actors.EnemyActor;
 import oscar.dicaprio.ui.actors.GroundActor;
 import oscar.dicaprio.ui.actors.RunnerActor;
 
@@ -48,10 +51,19 @@ public class MainGameStage extends Stage implements ContactListener {
     setUpWorld();
     setUpCamera();
     setUpTouchControlAreas();
+
+    createEnemy();
   }
 
   @Override public void act(float delta) {
     super.act(delta);
+
+    final Array<Body> bodies = new Array<Body>(mWorld.getBodyCount());
+    mWorld.getBodies(bodies);
+
+    for (Body body : bodies) {
+      update(body);
+    }
 
     // Fixed timestep
     mAccumulator += delta;
@@ -111,8 +123,11 @@ public class MainGameStage extends Stage implements ContactListener {
     final Body a = contact.getFixtureA().getBody();
     final Body b = contact.getFixtureB().getBody();
 
-    if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) || (BodyUtils.bodyIsGround(a)
-        && BodyUtils.bodyIsRunner(b))) {
+    if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) ||
+        (BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsRunner(b))) {
+      mRunner.hit();
+    } else if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) ||
+        (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {
       mRunner.landed();
     }
   }
@@ -179,6 +194,22 @@ public class MainGameStage extends Stage implements ContactListener {
         new Rectangle(getCamera().viewportWidth / 2, 0, getCamera().viewportWidth / 2,
             getCamera().viewportHeight);
     Gdx.input.setInputProcessor(this);
+  }
+  //endregion
+
+  //region Util step methods
+  private void update(Body body) {
+    if (!BodyUtils.bodyInBounds(body)) {
+      if (BodyUtils.bodyIsEnemy(body) && !mRunner.isHit()) {
+        createEnemy();
+      }
+      mWorld.destroyBody(body);
+    }
+  }
+
+  private void createEnemy() {
+    final EnemyActor enemy = new EnemyActor(WorldUtils.createEnemy(mWorld));
+    addActor(enemy);
   }
   //endregion
 }

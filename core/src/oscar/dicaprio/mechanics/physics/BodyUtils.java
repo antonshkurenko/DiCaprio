@@ -30,4 +30,28 @@ public class BodyUtils {
       return false;
     }
   }
+
+  public static boolean bodyIsEnemy(Body body) {
+    try {
+      final UserData userData = (UserData) body.getUserData();
+      return userData != null && userData.getUserDataType() == UserDataType.ENEMY;
+    } catch (ClassCastException e) {
+      return false;
+    }
+  }
+
+  public static boolean bodyInBounds(Body body) {
+    try {
+      final UserData userData = (UserData) body.getUserData();
+
+      switch (userData.getUserDataType()) {
+        case RUNNER:
+        case ENEMY:
+          return body.getPosition().x + userData.getWidth() / 2 > 0;
+      }
+    } catch (ClassCastException ignored) {
+
+    }
+    return true;
+  }
 }

@@ -45,6 +45,8 @@ public class Constants {
   // dodging constants
   public static final float RUNNER_DODGE_X = 2f;
   public static final float RUNNER_DODGE_Y = 1.5f;
+  // hit constants
+  public static final float RUNNER_HIT_ANGULAR_IMPULSE = 10f;
 
   /**
    * Enemy constants

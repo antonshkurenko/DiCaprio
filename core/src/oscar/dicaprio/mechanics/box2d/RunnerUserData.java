@@ -42,6 +42,10 @@ public class RunnerUserData extends UserData {
     return (float) (-90f * (Math.PI / 180f));
   }
 
+  public float getHitAngularImpulse() {
+    return Constants.RUNNER_HIT_ANGULAR_IMPULSE;
+  }
+
   public Vector2 getRunningPosition() {
     return mRunningPosition;
   }
