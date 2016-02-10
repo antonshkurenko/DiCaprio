@@ -134,10 +134,10 @@ public class MainGameStage extends Stage implements ContactListener {
 
     if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) || (BodyUtils.bodyIsEnemy(a)
         && BodyUtils.bodyIsRunner(b))) {
-      mRunner.hit();
+      mRunner.handleEvent(State.EVENT_TYPE_COLLISION_WITH_ENEMY);
     } else if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) || (
         BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {
-      mRunner.landed();
+      mRunner.handleEvent(State.EVENT_TYPE_COLLISION_WITH_GROUND);
     }
   }
 

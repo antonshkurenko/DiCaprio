@@ -11,7 +11,7 @@ import oscar.dicaprio.ui.actors.RunnerActor;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
-public class RunningState implements State {
+public class RunningState extends AbstractAliveState {
 
   @Override public void handleInput(RunnerActor runner, int inputType) {
     switch (inputType) {

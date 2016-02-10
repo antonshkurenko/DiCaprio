@@ -14,4 +14,8 @@ public class HitState implements State {
   @Override public void handleInput(RunnerActor runner, int inputType) {
 
   }
+
+  @Override public void handleEvent(RunnerActor runner, int eventType) {
+
+  }
 }

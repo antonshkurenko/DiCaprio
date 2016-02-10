@@ -16,7 +16,7 @@ public class RunnerActor extends BaseActor {
 
   protected final StatesHolder mStatesHolder = new StatesHolder();
 
-  protected State mState;
+  protected State mState = mStatesHolder.getRunningState();
 
   public RunnerActor(Body body) {
     super(body);
@@ -28,6 +28,10 @@ public class RunnerActor extends BaseActor {
 
   public void handleInput(int inputType) {
     mState.handleInput(this, inputType);
+  }
+
+  public void handleEvent(int eventType) {
+    mState.handleEvent(this, eventType);
   }
 
   //region Getters and setters
@@ -43,13 +47,4 @@ public class RunnerActor extends BaseActor {
     return mStatesHolder;
   }
   //endregion
-
-  public void landed() {
-    mState = mStatesHolder.getRunningState();
-  }
-
-  public void hit() {
-    mBody.applyAngularImpulse(getUserData().getHitAngularImpulse(), true);
-    mState = mStatesHolder.getHitState();
-  }
 }
