@@ -22,4 +22,8 @@ public abstract class BaseActor extends Actor {
   }
 
   public abstract UserData getUserData();
+
+  public Body getBody() {
+    return mBody;
+  }
 }

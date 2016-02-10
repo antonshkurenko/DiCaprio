@@ -87,7 +87,7 @@ public class WorldUtils {
     shape.setAsBox(Constants.RUNNER_WIDTH / 2, Constants.RUNNER_HEIGHT / 2);
     body.createFixture(shape, Constants.RUNNER_DENSITY);
     body.setGravityScale(Constants.RUNNER_GRAVITY_SCALE); // and this
-    body.resetMassData(); // todo(tonyshkurenko), 2/8/16: check this
+    body.resetMassData();
     shape.dispose();
     return body;
   }

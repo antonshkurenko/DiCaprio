@@ -15,10 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import oscar.dicaprio.mechanics.physics.BodyUtils;
 import oscar.dicaprio.mechanics.physics.WorldUtils;
-import oscar.dicaprio.mechanics.physics.enemies.Enemy;
 import oscar.dicaprio.ui.actors.EnemyActor;
 import oscar.dicaprio.ui.actors.GroundActor;
 import oscar.dicaprio.ui.actors.RunnerActor;
+import oscar.dicaprio.ui.actors.runnerstates.HitState;
+import oscar.dicaprio.ui.actors.runnerstates.State;
 
 /**
  * Created by: Anton Shkurenko (cullycross) Project: DiCaprio Date: 2/8/16 Code style:
@@ -43,7 +44,6 @@ public class MainGameStage extends Stage implements ContactListener {
 
   private float mAccumulator = 0f;
 
-  // todo(tonyshkurenko), 2/9/16: aint sure we really need this, think about recreating, and delete global instance
   private Rectangle mScreenRightSide;
   private Rectangle mScreenLeftSide;
 
@@ -94,23 +94,32 @@ public class MainGameStage extends Stage implements ContactListener {
     // Need to get the actual coordinates
     final Vector3 touchPoint = translateScreenToWorldCoordinates(x, y);
 
-    // todo(tonyshkurenko), 2/9/16: use State to handle inputs
+    int inputType = State.INPUT_TYPE_NOTHING;
     if (rightSideTouched(touchPoint.x, touchPoint.y)) {
-      mRunner.jump();
+      inputType = State.INPUT_TYPE_RIGHT_TOUCH_DOWN;
     } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
-      mRunner.dodge();
+      inputType = State.INPUT_TYPE_LEFT_TOUCH_DOWN;
     }
+
+    mRunner.handleInput(inputType);
 
     return super.touchDown(x, y, pointer, button);
   }
 
-  @Override public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+  @Override public boolean touchUp(int x, int y, int pointer, int button) {
 
-    if (mRunner.isDodging()) {
-      mRunner.stopDodge();
+    final Vector3 touchPoint = translateScreenToWorldCoordinates(x, y);
+
+    int inputType = State.INPUT_TYPE_NOTHING;
+    if (rightSideTouched(touchPoint.x, touchPoint.y)) {
+      inputType = State.INPUT_TYPE_RIGHT_TOUCH_UP;
+    } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
+      inputType = State.INPUT_TYPE_LEFT_TOUCH_UP;
     }
 
-    return super.touchUp(screenX, screenY, pointer, button);
+    mRunner.handleInput(inputType);
+
+    return super.touchUp(x, y, pointer, button);
   }
 
   //endregion
@@ -123,11 +132,11 @@ public class MainGameStage extends Stage implements ContactListener {
     final Body a = contact.getFixtureA().getBody();
     final Body b = contact.getFixtureB().getBody();
 
-    if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) ||
-        (BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsRunner(b))) {
+    if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) || (BodyUtils.bodyIsEnemy(a)
+        && BodyUtils.bodyIsRunner(b))) {
       mRunner.hit();
-    } else if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) ||
-        (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {
+    } else if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) || (
+        BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {
       mRunner.landed();
     }
   }
@@ -189,7 +198,8 @@ public class MainGameStage extends Stage implements ContactListener {
   }
 
   private void setUpTouchControlAreas() {
-    mScreenLeftSide = new Rectangle(0, 0, getCamera().viewportWidth / 2, getCamera().viewportHeight);
+    mScreenLeftSide =
+        new Rectangle(0, 0, getCamera().viewportWidth / 2, getCamera().viewportHeight);
     mScreenRightSide =
         new Rectangle(getCamera().viewportWidth / 2, 0, getCamera().viewportWidth / 2,
             getCamera().viewportHeight);
@@ -200,7 +210,8 @@ public class MainGameStage extends Stage implements ContactListener {
   //region Util step methods
   private void update(Body body) {
     if (!BodyUtils.bodyInBounds(body)) {
-      if (BodyUtils.bodyIsEnemy(body) && !mRunner.isHit()) {
+      if (BodyUtils.bodyIsEnemy(body)
+          && !(mRunner.getState() instanceof HitState)) { // todo(tonyshkurenko), 2/11/16: rework "instance of"
         createEnemy();
       }
       mWorld.destroyBody(body);
