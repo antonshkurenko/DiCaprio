@@ -20,7 +20,7 @@ public interface State {
   int INPUT_TYPE_RIGHT_TOUCH_DOWN = 1;
   int INPUT_TYPE_RIGHT_TOUCH_UP = 2;
 
-  //// todo(tonyshkurenko), 2/11/16: and events also
+  // todo(tonyshkurenko), 2/11/16: and events also
 
   int EVENT_TYPE_COLLISION_WITH_GROUND = 1;
   int EVENT_TYPE_COLLISION_WITH_ENEMY = 2;

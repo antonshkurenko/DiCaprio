@@ -1,7 +1,7 @@
 package oscar.dicaprio.ui.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import oscar.dicaprio.mechanics.box2d.UserData;
 
 /**
@@ -11,14 +11,16 @@ import oscar.dicaprio.mechanics.box2d.UserData;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
-public abstract class BaseActor extends Actor {
+public abstract class BaseActor extends CollidableActor {
+
+  private static final String TAG = BaseActor.class.getSimpleName();
 
   protected final Body mBody;
   protected final UserData mUserData;
 
-  public BaseActor(Body mBody) {
-    this.mBody = mBody;
-    this.mUserData = ((UserData) mBody.getUserData());
+  public BaseActor(Body body) {
+    this.mBody = body;
+    this.mUserData = ((UserData) body.getUserData());
   }
 
   public abstract UserData getUserData();
@@ -26,4 +28,15 @@ public abstract class BaseActor extends Actor {
   public Body getBody() {
     return mBody;
   }
+
+  //region Collider
+  @Override public void collide(CollidableActor c) {
+    c.collideTo(this);
+  }
+
+  @Override public void collideTo(BaseActor base) {
+    // base object and base object
+    Gdx.app.log(TAG, "Collision: base to base");
+  }
+  //endregion
 }

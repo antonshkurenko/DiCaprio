@@ -28,7 +28,7 @@ public class JumpingState extends AbstractAliveState {
     }
   }
 
-  private void land(RunnerActor runner) {
+  protected void land(RunnerActor runner) {
     runner.setState(runner.getStatesHolder().getRunningState());
   }
 }

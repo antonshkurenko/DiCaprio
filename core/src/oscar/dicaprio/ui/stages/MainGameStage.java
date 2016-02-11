@@ -11,10 +11,15 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import java.util.ArrayList;
+import java.util.List;
 import oscar.dicaprio.mechanics.physics.BodyUtils;
 import oscar.dicaprio.mechanics.physics.WorldUtils;
+import oscar.dicaprio.mechanics.physics.enemies.Enemy;
+import oscar.dicaprio.ui.actors.BaseActor;
 import oscar.dicaprio.ui.actors.EnemyActor;
 import oscar.dicaprio.ui.actors.GroundActor;
 import oscar.dicaprio.ui.actors.RunnerActor;
@@ -33,6 +38,9 @@ public class MainGameStage extends Stage implements ContactListener {
   private static final int VIEWPORT_HEIGHT = 13;
 
   private static final float TIME_STEP = 1 / 300f;
+
+  private static final int VELOCITY_ITERATIONS = 8;
+  private static final int POSITION_ITERATIONS = 3;
 
   private final Box2DDebugRenderer mRenderer = new Box2DDebugRenderer();
 
@@ -58,7 +66,7 @@ public class MainGameStage extends Stage implements ContactListener {
   @Override public void act(float delta) {
     super.act(delta);
 
-    final Array<Body> bodies = new Array<Body>(mWorld.getBodyCount());
+    final Array<Body> bodies = new Array<>(mWorld.getBodyCount());
     mWorld.getBodies(bodies);
 
     for (Body body : bodies) {
@@ -70,8 +78,7 @@ public class MainGameStage extends Stage implements ContactListener {
 
     while (mAccumulator >= delta) {
 
-      // todo(tonyshkurenko), 2/8/16: check info about 6 and 2, I don't remember what is this
-      mWorld.step(TIME_STEP, 6, 2);
+      mWorld.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
       mAccumulator -= TIME_STEP;
     }
 
@@ -127,17 +134,31 @@ public class MainGameStage extends Stage implements ContactListener {
   //region Implements ContactListener
   @Override public void beginContact(Contact contact) {
 
-    // todo(tonyshkurenko), 2/9/16: looks shitty, rework it, to avoid lots of "ifs" later
-
     final Body a = contact.getFixtureA().getBody();
     final Body b = contact.getFixtureB().getBody();
 
-    if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) || (BodyUtils.bodyIsEnemy(a)
-        && BodyUtils.bodyIsRunner(b))) {
-      mRunner.handleEvent(State.EVENT_TYPE_COLLISION_WITH_ENEMY);
-    } else if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) || (
-        BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {
-      mRunner.handleEvent(State.EVENT_TYPE_COLLISION_WITH_GROUND);
+    BaseActor aActor = null;
+    BaseActor bActor = null;
+
+    final Array<Actor> actors = getActors();
+    for (Actor actor : actors) {
+
+      try {
+
+        final BaseActor baseActor = (BaseActor) actor;
+        if (baseActor.getBody().equals(a)) {
+          aActor = baseActor;
+        } else if (baseActor.getBody().equals(b)) {
+          bActor = baseActor;
+        }
+      } catch (ClassCastException ignored) {
+        // ClassCast > instanceof
+      }
+
+      if(aActor != null && bActor != null) {
+        aActor.collide(bActor);
+        break;
+      }
     }
   }
 

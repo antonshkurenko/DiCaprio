@@ -19,7 +19,7 @@ public abstract class AbstractAliveState implements State {
     }
   }
 
-  private void die(RunnerActor runner) {
+  protected void die(RunnerActor runner) {
     runner.getBody().applyAngularImpulse(runner.getUserData().getHitAngularImpulse(), true);
     runner.setState(runner.getStatesHolder().getHitState());
   }

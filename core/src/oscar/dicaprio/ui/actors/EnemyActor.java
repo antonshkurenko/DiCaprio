@@ -1,5 +1,6 @@
 package oscar.dicaprio.ui.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import oscar.dicaprio.mechanics.box2d.EnemyUserData;
 
@@ -11,6 +12,8 @@ import oscar.dicaprio.mechanics.box2d.EnemyUserData;
  * Follow me: @tonyshkurenko
  */
 public class EnemyActor extends BaseActor {
+
+  private static final String TAG = EnemyActor.class.getSimpleName();
 
   public EnemyActor(Body body) {
     super(body);
@@ -24,4 +27,25 @@ public class EnemyActor extends BaseActor {
     super.act(delta);
     mBody.setLinearVelocity(getUserData().getLinearVelocity());
   }
+
+  //region Collider
+  @Override public void collide(CollidableActor c) {
+    c.collideTo(this);
+  }
+
+  @Override public void collideTo(BaseActor base) {
+    // enemy and base object
+    Gdx.app.log(TAG, "Collision: enemy to base");
+  }
+
+  @Override public void collideTo(GroundActor ground) {
+    // enemy and ground
+    Gdx.app.log(TAG, "Collision: enemy to ground");
+  }
+
+  @Override public void collideTo(EnemyActor enemy) {
+    // enemy and enemy
+    Gdx.app.log(TAG, "Collision: enemy to enemy");
+  }
+  //endregion
 }

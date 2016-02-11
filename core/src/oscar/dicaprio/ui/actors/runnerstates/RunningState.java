@@ -24,7 +24,7 @@ public class RunningState extends AbstractAliveState {
     }
   }
 
-  private void jump(final RunnerActor runner) {
+  protected void jump(final RunnerActor runner) {
 
     final Body body = runner.getBody();
     body.applyLinearImpulse(runner.getUserData().getJumpingLinearImpulse(), body.getWorldCenter(),
@@ -33,7 +33,7 @@ public class RunningState extends AbstractAliveState {
     runner.setState(runner.getStatesHolder().getJumpingState());
   }
 
-  private void dodge(final RunnerActor runner) {
+  protected void dodge(final RunnerActor runner) {
 
     final Body body = runner.getBody();
     final RunnerUserData userData = runner.getUserData();
