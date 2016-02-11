@@ -24,6 +24,16 @@ public class JumpingState extends AbstractInAirState {
   protected void jump(final RunnerActor runner) {
 
     final Body body = runner.getBody();
+
+    /**
+     * Remove speed, to make him like jump from the platform in the air
+     * Because:
+     * if fast double jump it jumps very high (double linear velocity),
+     * but if next jump is near the ground, it's low
+     *
+     * (Y velocity is low (falling down) and impulse does nothing)
+     */
+    body.setLinearVelocity(0f, 0f);
     body.applyLinearImpulse(runner.getUserData().getJumpingLinearImpulse(), body.getWorldCenter(),
         true);
 
