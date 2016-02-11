@@ -6,6 +6,7 @@ import oscar.dicaprio.mechanics.box2d.RunnerUserData;
 import oscar.dicaprio.scene.actors.runnerstates.AbstractAliveState;
 import oscar.dicaprio.scene.actors.runnerstates.State;
 import oscar.dicaprio.scene.actors.runnerstates.StatesHolder;
+import oscar.dicaprio.utils.Bank;
 import oscar.dicaprio.utils.Constants;
 
 /**
@@ -87,6 +88,18 @@ public class RunnerActor extends BaseActor {
     // runner and runner
     // *should never happen
     Gdx.app.log(TAG, "Collision: runner to runner");
+  }
+
+  @Override public void collideTo(CoinActor coin) {
+    // runner and coin
+    Gdx.app.log(TAG, "Collision: runner to coin");
+
+    // collect coin inside, because it's related to state
+    handleEvent(Constants.EVENT_TYPE_COLLISION_RUNNER_WITH_COIN);
+
+    // remove coin here
+    Bank.getInstance().incrementCoins();
+    coin.getBody().getWorld().destroyBody(coin.getBody());
   }
   //endregion
 }

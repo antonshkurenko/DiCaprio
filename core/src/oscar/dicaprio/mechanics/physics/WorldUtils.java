@@ -86,7 +86,7 @@ public class WorldUtils {
      */
     shape.setAsBox(Constants.RUNNER_WIDTH / 2, Constants.RUNNER_HEIGHT / 2);
     body.createFixture(shape, Constants.RUNNER_DENSITY);
-    body.setGravityScale(Constants.RUNNER_GRAVITY_SCALE); // and this
+    body.setGravityScale(Constants.RUNNER_GRAVITY_SCALE);
     body.resetMassData();
     shape.dispose();
     return body;
@@ -114,6 +114,39 @@ public class WorldUtils {
 
     shape.setAsBox(enemyWidth / 2, enemyHeight / 2);
     body.createFixture(shape, enemyType.getDensity());
+    body.resetMassData();
+    shape.dispose();
+    return body;
+  }
+
+  public static Body createCoin(World world) {
+
+    final BodyDef bodyDef = new BodyDef();
+    bodyDef.type = BodyDef.BodyType.KinematicBody;
+    bodyDef.position.set(new Vector2(Constants.COIN_X, Constants.COIN_Y));
+
+    final Body body = world.createBody(bodyDef);
+    final PolygonShape shape = new PolygonShape();
+
+    body.setUserData(new EnemyUserData(Constants.COIN_WIDTH, Constants.COIN_HEIGHT));
+
+    /**
+     * Draw coin
+     *
+     * /**
+     * /\   End of the screen
+     * |          |
+     * |          |
+     * |          |     ___
+     * |          |     |_|
+     * |---------------------Ground position
+     * |
+     * --------------------------->
+     */
+
+    shape.setAsBox(Constants.COIN_WIDTH / 2, Constants.COIN_HEIGHT / 2);
+    body.createFixture(shape, Constants.COIN_DENSITY);
+    body.setGravityScale(Constants.COIN_GRAVITY_SCALE);
     body.resetMassData();
     shape.dispose();
     return body;

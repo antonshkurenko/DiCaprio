@@ -59,6 +59,17 @@ public class Constants {
   public static final Vector2 ENEMY_LINEAR_VELOCITY = new Vector2(-10f, 0);
 
   /**
+   * Coin constants
+   */
+  public static final float COIN_X = 25f;
+  public static final float COIN_Y = 1.5f;
+  public static final float COIN_DENSITY = RUNNER_DENSITY;
+  public static final float COIN_WIDTH = 1f;
+  public static final float COIN_HEIGHT = 1f;
+  public static final float COIN_GRAVITY_SCALE = 0f; // ignore gravity
+  public static final Vector2 COIN_LINEAR_VELOCITY = new Vector2(-10f, 0);
+
+  /**
    * Input constants
    */
   public static final int INPUT_TYPE_NOTHING = 0;
@@ -72,6 +83,7 @@ public class Constants {
    */
   public static final int EVENT_TYPE_COLLISION_RUNNER_WITH_GROUND = 1;
   public static final int EVENT_TYPE_COLLISION_RUNNER_WITH_ENEMY = 2;
+  public static final int EVENT_TYPE_COLLISION_RUNNER_WITH_COIN = 3;
 
   private Constants() {
     // never instantiate

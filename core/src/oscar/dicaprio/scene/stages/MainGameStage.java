@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Array;
 import oscar.dicaprio.mechanics.physics.BodyUtils;
 import oscar.dicaprio.mechanics.physics.WorldUtils;
 import oscar.dicaprio.scene.actors.BaseActor;
+import oscar.dicaprio.scene.actors.CoinActor;
 import oscar.dicaprio.scene.actors.EnemyActor;
 import oscar.dicaprio.scene.actors.GroundActor;
 import oscar.dicaprio.scene.actors.RunnerActor;
@@ -233,10 +234,13 @@ public class MainGameStage extends Stage implements ContactListener {
 
   //region Util step methods
   private void update(Body body) {
-    if (!BodyUtils.bodyInBounds(body)) {
-      if (BodyUtils.bodyIsEnemy(body) && mRunner.isAlive()) {
-        createEnemy();
+    if (!BodyUtils.bodyInLeftBound(body)) {
+      if(mRunner.isAlive()) {
+        if (BodyUtils.bodyIsEnemy(body)) {
+          createEnemy();
+        }
       }
+
       mWorld.destroyBody(body);
     }
   }
@@ -244,6 +248,11 @@ public class MainGameStage extends Stage implements ContactListener {
   private void createEnemy() {
     final EnemyActor enemy = new EnemyActor(WorldUtils.createEnemy(mWorld));
     addActor(enemy);
+  }
+
+  private void createCoin() {
+    final CoinActor coin = new CoinActor(WorldUtils.createCoin(mWorld));
+    addActor(coin);
   }
   //endregion
 }
