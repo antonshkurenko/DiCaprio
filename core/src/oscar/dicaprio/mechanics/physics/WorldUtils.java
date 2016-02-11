@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import oscar.dicaprio.mechanics.box2d.CoinUserData;
 import oscar.dicaprio.mechanics.box2d.EnemyUserData;
 import oscar.dicaprio.mechanics.box2d.GroundUserData;
 import oscar.dicaprio.mechanics.box2d.RunnerUserData;
@@ -128,7 +129,7 @@ public class WorldUtils {
     final Body body = world.createBody(bodyDef);
     final PolygonShape shape = new PolygonShape();
 
-    body.setUserData(new EnemyUserData(Constants.COIN_WIDTH, Constants.COIN_HEIGHT));
+    body.setUserData(new CoinUserData(Constants.COIN_WIDTH, Constants.COIN_HEIGHT));
 
     /**
      * Draw coin
@@ -146,7 +147,6 @@ public class WorldUtils {
 
     shape.setAsBox(Constants.COIN_WIDTH / 2, Constants.COIN_HEIGHT / 2);
     body.createFixture(shape, Constants.COIN_DENSITY);
-    body.setGravityScale(Constants.COIN_GRAVITY_SCALE);
     body.resetMassData();
     shape.dispose();
     return body;

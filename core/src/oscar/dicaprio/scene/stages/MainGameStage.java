@@ -30,8 +30,11 @@ import oscar.dicaprio.utils.Constants;
  */
 public class MainGameStage extends Stage implements ContactListener {
 
+  private static final String TAG = MainGameStage.class.getSimpleName();
+
   // This will be our viewport measurements while working with the debug renderer
-  private static final int VIEWPORT_WIDTH = 20;
+  //private static final int VIEWPORT_WIDTH = 20;
+  private static final int VIEWPORT_WIDTH = 40;
   private static final int VIEWPORT_HEIGHT = 13;
 
   // Each Box2d step will simulate TIME_STEP seconds step in real life
@@ -62,8 +65,20 @@ public class MainGameStage extends Stage implements ContactListener {
     createEnemy();
   }
 
+  // todo(tonyshkurenko), 2/11/16: never do the same
+  // just for testing coins
+  private float counter;
+  private static final float MORE = 0.5f;
+
   @Override public void act(float delta) {
     super.act(delta);
+
+    counter+=delta;
+    if(counter >= MORE) {
+      Gdx.app.log(TAG, "::act(delta), coin creation.");
+      createCoin();
+      counter -= MORE;
+    }
 
     final Array<Body> bodies = new Array<>(mWorld.getBodyCount());
     mWorld.getBodies(bodies);

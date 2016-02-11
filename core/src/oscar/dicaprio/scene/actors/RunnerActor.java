@@ -99,6 +99,13 @@ public class RunnerActor extends BaseActor {
 
     // remove coin here
     Bank.getInstance().incrementCoins();
+    // todo(tonyshkurenko), 2/11/16: coin can not be deleted, while world is stepping
+    /**
+     * https://www.iforce2d.net/b2dtut/sensors
+     * http://www.iforce2d.net/b2dtut/collision-filtering
+     * http://www.emanueleferonato.com/2010/02/25/box2d-flash-game-creation-tutorial-part-2/
+     * http://code.tutsplus.com/tutorials/build-a-physics-based-platformer-in-under-an-hour--active-7324
+     */
     coin.getBody().getWorld().destroyBody(coin.getBody());
   }
   //endregion

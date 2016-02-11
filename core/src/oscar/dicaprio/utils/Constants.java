@@ -66,7 +66,6 @@ public class Constants {
   public static final float COIN_DENSITY = RUNNER_DENSITY;
   public static final float COIN_WIDTH = 1f;
   public static final float COIN_HEIGHT = 1f;
-  public static final float COIN_GRAVITY_SCALE = 0f; // ignore gravity
   public static final Vector2 COIN_LINEAR_VELOCITY = new Vector2(-10f, 0);
 
   /**

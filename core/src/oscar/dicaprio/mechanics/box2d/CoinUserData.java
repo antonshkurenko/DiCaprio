@@ -21,7 +21,7 @@ public class CoinUserData extends UserData {
 
   public CoinUserData(float width, float height) {
     super(width, height);
-    mLinearVelocity = Constants.ENEMY_LINEAR_VELOCITY;
+    mLinearVelocity = Constants.COIN_LINEAR_VELOCITY;
   }
 
   @Override public UserDataType getUserDataType() {
