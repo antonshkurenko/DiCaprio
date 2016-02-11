@@ -1,4 +1,4 @@
-package oscar.dicaprio.ui.stages;
+package oscar.dicaprio.scene.stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,10 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import oscar.dicaprio.mechanics.physics.BodyUtils;
 import oscar.dicaprio.mechanics.physics.WorldUtils;
-import oscar.dicaprio.ui.actors.BaseActor;
-import oscar.dicaprio.ui.actors.EnemyActor;
-import oscar.dicaprio.ui.actors.GroundActor;
-import oscar.dicaprio.ui.actors.RunnerActor;
+import oscar.dicaprio.scene.actors.BaseActor;
+import oscar.dicaprio.scene.actors.EnemyActor;
+import oscar.dicaprio.scene.actors.GroundActor;
+import oscar.dicaprio.scene.actors.RunnerActor;
 import oscar.dicaprio.utils.Constants;
 
 /**

@@ -1,9 +1,9 @@
-package oscar.dicaprio.ui.screens;
+package oscar.dicaprio.scene.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import oscar.dicaprio.ui.stages.MainGameStage;
+import oscar.dicaprio.scene.stages.MainGameStage;
 
 /**
  * Created by: Anton Shkurenko (cullycross)

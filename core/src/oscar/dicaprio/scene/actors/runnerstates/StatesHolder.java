@@ -1,4 +1,4 @@
-package oscar.dicaprio.ui.actors.runnerstates;
+package oscar.dicaprio.scene.actors.runnerstates;
 
 /**
  * Created by: Anton Shkurenko (cullycross)

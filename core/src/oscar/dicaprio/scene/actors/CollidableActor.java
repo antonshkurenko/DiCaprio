@@ -1,4 +1,4 @@
-package oscar.dicaprio.ui.actors;
+package oscar.dicaprio.scene.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 

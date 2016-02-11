@@ -1,12 +1,11 @@
-package oscar.dicaprio.ui.actors;
+package oscar.dicaprio.scene.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import oscar.dicaprio.mechanics.box2d.RunnerUserData;
-import oscar.dicaprio.ui.actors.runnerstates.AbstractAliveState;
-import oscar.dicaprio.ui.actors.runnerstates.HitState;
-import oscar.dicaprio.ui.actors.runnerstates.State;
-import oscar.dicaprio.ui.actors.runnerstates.StatesHolder;
+import oscar.dicaprio.scene.actors.runnerstates.AbstractAliveState;
+import oscar.dicaprio.scene.actors.runnerstates.State;
+import oscar.dicaprio.scene.actors.runnerstates.StatesHolder;
 import oscar.dicaprio.utils.Constants;
 
 /**

@@ -1,6 +1,6 @@
-package oscar.dicaprio.ui.actors.runnerstates;
+package oscar.dicaprio.scene.actors.runnerstates;
 
-import oscar.dicaprio.ui.actors.RunnerActor;
+import oscar.dicaprio.scene.actors.RunnerActor;
 
 /**
  * Created by: Anton Shkurenko (cullycross)

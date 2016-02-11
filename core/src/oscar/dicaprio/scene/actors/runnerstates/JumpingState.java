@@ -1,6 +1,6 @@
-package oscar.dicaprio.ui.actors.runnerstates;
+package oscar.dicaprio.scene.actors.runnerstates;
 
-import oscar.dicaprio.ui.actors.RunnerActor;
+import oscar.dicaprio.scene.actors.RunnerActor;
 import oscar.dicaprio.utils.Constants;
 
 /**
