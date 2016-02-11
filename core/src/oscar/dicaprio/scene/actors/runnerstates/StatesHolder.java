@@ -14,6 +14,7 @@ public final class StatesHolder {
   private State mHitState;
   private State mRunningState;
   private State mJumpingState;
+  private State mDoubleJumpingState;
 
   //region Lazy getters
   public State getDodgingState() {
@@ -47,6 +48,14 @@ public final class StatesHolder {
     }
 
     return mJumpingState;
+  }
+
+  public State getDoubleJumpingState() {
+    if(mDoubleJumpingState == null) {
+      mDoubleJumpingState = new DoubleJumpState();
+    }
+
+    return mDoubleJumpingState;
   }
   //endregion
 }
