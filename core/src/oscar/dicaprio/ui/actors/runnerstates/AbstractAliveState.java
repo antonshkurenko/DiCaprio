@@ -1,6 +1,7 @@
 package oscar.dicaprio.ui.actors.runnerstates;
 
 import oscar.dicaprio.ui.actors.RunnerActor;
+import oscar.dicaprio.utils.Constants;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -9,11 +10,15 @@ import oscar.dicaprio.ui.actors.RunnerActor;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * State to handle live -> dead
+ */
 public abstract class AbstractAliveState implements State {
 
   @Override public void handleEvent(RunnerActor runner, int eventType) {
     switch (eventType) {
-      case EVENT_TYPE_COLLISION_WITH_ENEMY:
+      case Constants.EVENT_TYPE_COLLISION_RUNNER_WITH_ENEMY:
         die(runner);
         break;
     }

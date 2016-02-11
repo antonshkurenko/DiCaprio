@@ -14,17 +14,13 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
-import java.util.ArrayList;
-import java.util.List;
 import oscar.dicaprio.mechanics.physics.BodyUtils;
 import oscar.dicaprio.mechanics.physics.WorldUtils;
-import oscar.dicaprio.mechanics.physics.enemies.Enemy;
 import oscar.dicaprio.ui.actors.BaseActor;
 import oscar.dicaprio.ui.actors.EnemyActor;
 import oscar.dicaprio.ui.actors.GroundActor;
 import oscar.dicaprio.ui.actors.RunnerActor;
-import oscar.dicaprio.ui.actors.runnerstates.HitState;
-import oscar.dicaprio.ui.actors.runnerstates.State;
+import oscar.dicaprio.utils.Constants;
 
 /**
  * Created by: Anton Shkurenko (cullycross) Project: DiCaprio Date: 2/8/16 Code style:
@@ -37,11 +33,13 @@ public class MainGameStage extends Stage implements ContactListener {
   private static final int VIEWPORT_WIDTH = 20;
   private static final int VIEWPORT_HEIGHT = 13;
 
+  // Each Box2d step will simulate TIME_STEP seconds step in real life
   private static final float TIME_STEP = 1 / 300f;
 
   private static final int VELOCITY_ITERATIONS = 8;
   private static final int POSITION_ITERATIONS = 3;
 
+  // Temp renderer
   private final Box2DDebugRenderer mRenderer = new Box2DDebugRenderer();
 
   private OrthographicCamera mCamera;
@@ -83,7 +81,6 @@ public class MainGameStage extends Stage implements ContactListener {
     }
 
     //TODO: Implement interpolation
-
   }
 
   @Override public void draw() {
@@ -101,11 +98,12 @@ public class MainGameStage extends Stage implements ContactListener {
     // Need to get the actual coordinates
     final Vector3 touchPoint = translateScreenToWorldCoordinates(x, y);
 
-    int inputType = State.INPUT_TYPE_NOTHING;
+    int inputType = Constants.INPUT_TYPE_NOTHING;
+
     if (rightSideTouched(touchPoint.x, touchPoint.y)) {
-      inputType = State.INPUT_TYPE_RIGHT_TOUCH_DOWN;
+      inputType = Constants.INPUT_TYPE_RIGHT_TOUCH_DOWN;
     } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
-      inputType = State.INPUT_TYPE_LEFT_TOUCH_DOWN;
+      inputType = Constants.INPUT_TYPE_LEFT_TOUCH_DOWN;
     }
 
     mRunner.handleInput(inputType);
@@ -117,11 +115,11 @@ public class MainGameStage extends Stage implements ContactListener {
 
     final Vector3 touchPoint = translateScreenToWorldCoordinates(x, y);
 
-    int inputType = State.INPUT_TYPE_NOTHING;
+    int inputType = Constants.INPUT_TYPE_NOTHING;
     if (rightSideTouched(touchPoint.x, touchPoint.y)) {
-      inputType = State.INPUT_TYPE_RIGHT_TOUCH_UP;
+      inputType = Constants.INPUT_TYPE_RIGHT_TOUCH_UP;
     } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
-      inputType = State.INPUT_TYPE_LEFT_TOUCH_UP;
+      inputType = Constants.INPUT_TYPE_LEFT_TOUCH_UP;
     }
 
     mRunner.handleInput(inputType);
@@ -140,6 +138,11 @@ public class MainGameStage extends Stage implements ContactListener {
     BaseActor aActor = null;
     BaseActor bActor = null;
 
+    /**
+     * To prevent work with the a lot of ifs and different bodies
+     * Just find two bodies out of all actors (maybe pretty inefficient)
+     * Compare -> find two -> collide them
+     */
     final Array<Actor> actors = getActors();
     for (Actor actor : actors) {
 
@@ -155,7 +158,7 @@ public class MainGameStage extends Stage implements ContactListener {
         // ClassCast > instanceof
       }
 
-      if(aActor != null && bActor != null) {
+      if (aActor != null && bActor != null) {
         aActor.collide(bActor);
         break;
       }
@@ -231,8 +234,7 @@ public class MainGameStage extends Stage implements ContactListener {
   //region Util step methods
   private void update(Body body) {
     if (!BodyUtils.bodyInBounds(body)) {
-      if (BodyUtils.bodyIsEnemy(body)
-          && !(mRunner.getState() instanceof HitState)) { // todo(tonyshkurenko), 2/11/16: rework "instance of"
+      if (BodyUtils.bodyIsEnemy(body) && mRunner.isAlive()) {
         createEnemy();
       }
       mWorld.destroyBody(body);

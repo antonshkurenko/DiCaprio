@@ -9,6 +9,10 @@ import oscar.dicaprio.utils.UserDataType;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Class, that describes physical behavior and parameters of the ground
+ */
 public class GroundUserData extends UserData {
 
   public GroundUserData() {

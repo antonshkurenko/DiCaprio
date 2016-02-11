@@ -11,6 +11,10 @@ import oscar.dicaprio.utils.UserDataType;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Utils to associate bodies with their presentation
+ */
 public class BodyUtils {
 
   public static boolean bodyIsRunner(Body body) {

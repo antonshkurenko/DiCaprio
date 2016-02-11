@@ -9,6 +9,10 @@ import oscar.dicaprio.utils.UserDataType;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Physical parameters
+ */
 public abstract class UserData {
 
   protected float mWidth;

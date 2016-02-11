@@ -11,6 +11,10 @@ import oscar.dicaprio.mechanics.box2d.UserData;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Actor, that consists of the physical body and physical params
+ */
 public abstract class BaseActor extends CollidableActor {
 
   private static final String TAG = BaseActor.class.getSimpleName();

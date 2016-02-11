@@ -11,6 +11,10 @@ import oscar.dicaprio.utils.UserDataType;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Class, that describes physical behavior and parameters of the enemy
+ */
 public class EnemyUserData extends UserData {
 
   private Vector2 mLinearVelocity;
@@ -27,10 +31,6 @@ public class EnemyUserData extends UserData {
   //region Getters and setters
   public Vector2 getLinearVelocity() {
     return mLinearVelocity;
-  }
-
-  public void setLinearVelocity(Vector2 linearVelocity) {
-    mLinearVelocity = linearVelocity;
   }
   //endregion
 }

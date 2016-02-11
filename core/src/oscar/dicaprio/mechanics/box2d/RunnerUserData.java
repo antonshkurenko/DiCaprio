@@ -11,9 +11,14 @@ import oscar.dicaprio.utils.UserDataType;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Class, that describes physical behavior and parameters of the runner
+ */
 public class RunnerUserData extends UserData {
 
   private final Vector2 mRunningPosition = new Vector2(Constants.RUNNER_X, Constants.RUNNER_Y);
+
   private final Vector2 mDodgePosition =
       new Vector2(Constants.RUNNER_DODGE_X, Constants.RUNNER_DODGE_Y);
 
@@ -31,10 +36,6 @@ public class RunnerUserData extends UserData {
   //region Getters and setters
   public Vector2 getJumpingLinearImpulse() {
     return mJumpingLinearImpulse;
-  }
-
-  public void setJumpingLinearImpulse(Vector2 jumpingLinearImpulse) {
-    this.mJumpingLinearImpulse = jumpingLinearImpulse;
   }
 
   public float getDodgeAngle() {

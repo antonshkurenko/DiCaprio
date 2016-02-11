@@ -3,8 +3,11 @@ package oscar.dicaprio.ui.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import oscar.dicaprio.mechanics.box2d.RunnerUserData;
+import oscar.dicaprio.ui.actors.runnerstates.AbstractAliveState;
+import oscar.dicaprio.ui.actors.runnerstates.HitState;
 import oscar.dicaprio.ui.actors.runnerstates.State;
 import oscar.dicaprio.ui.actors.runnerstates.StatesHolder;
+import oscar.dicaprio.utils.Constants;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -12,6 +15,10 @@ import oscar.dicaprio.ui.actors.runnerstates.StatesHolder;
  * Date: 2/8/16
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
+ */
+
+/**
+ * Actor, that consists of the physical body and physical params of the runner
  */
 public class RunnerActor extends BaseActor {
 
@@ -29,6 +36,7 @@ public class RunnerActor extends BaseActor {
     return ((RunnerUserData) mUserData);
   }
 
+  //region Handling by state
   public void handleInput(int inputType) {
     mState.handleInput(this, inputType);
   }
@@ -36,18 +44,19 @@ public class RunnerActor extends BaseActor {
   public void handleEvent(int eventType) {
     mState.handleEvent(this, eventType);
   }
+  //endregion
 
   //region Getters and setters
   public void setState(State state) {
     mState = state;
   }
 
-  public State getState() {
-    return mState;
-  }
-
   public StatesHolder getStatesHolder() {
     return mStatesHolder;
+  }
+
+  public boolean isAlive() {
+    return mState instanceof AbstractAliveState;
   }
   //endregion
 
@@ -65,14 +74,14 @@ public class RunnerActor extends BaseActor {
     // runner and ground
     Gdx.app.log(TAG, "Collision: runner to ground");
 
-    handleEvent(State.EVENT_TYPE_COLLISION_WITH_GROUND);
+    handleEvent(Constants.EVENT_TYPE_COLLISION_RUNNER_WITH_GROUND);
   }
 
   @Override public void collideTo(EnemyActor enemy) {
     // runner and enemy
     Gdx.app.log(TAG, "Collision: runner to enemy");
 
-    handleEvent(State.EVENT_TYPE_COLLISION_WITH_ENEMY);
+    handleEvent(Constants.EVENT_TYPE_COLLISION_RUNNER_WITH_ENEMY);
   }
 
   @Override public void collideTo(RunnerActor runner) {

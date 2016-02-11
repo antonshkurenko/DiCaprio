@@ -1,6 +1,7 @@
 package oscar.dicaprio.ui.actors.runnerstates;
 
 import oscar.dicaprio.ui.actors.RunnerActor;
+import oscar.dicaprio.utils.Constants;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -13,7 +14,7 @@ public class DodgingState extends AbstractAliveState {
 
   @Override public void handleInput(RunnerActor runner, int inputType) {
     switch (inputType) {
-      case INPUT_TYPE_LEFT_TOUCH_UP:
+      case Constants.INPUT_TYPE_LEFT_TOUCH_UP:
         run(runner);
         break;
     }

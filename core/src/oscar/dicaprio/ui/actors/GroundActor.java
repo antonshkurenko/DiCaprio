@@ -11,6 +11,10 @@ import oscar.dicaprio.mechanics.box2d.GroundUserData;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Actor, that consists of the physical body and physical params of the ground
+ */
 public class GroundActor extends BaseActor {
 
   private static final String TAG = GroundActor.class.getSimpleName();

@@ -12,6 +12,7 @@ import oscar.dicaprio.ui.stages.MainGameStage;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
 public class MainGameScreen implements Screen {
 
   private final MainGameStage mMainGameStage;
@@ -26,11 +27,12 @@ public class MainGameScreen implements Screen {
   }
 
   @Override public void render(float delta) {
-    //Clear the screen
+    // Clear the screen
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-    //Update the stage
+    // Update stage view
     mMainGameStage.draw();
+    // Update stage physical state
     mMainGameStage.act(delta);
   }
 

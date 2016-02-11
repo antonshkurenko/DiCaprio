@@ -3,6 +3,7 @@ package oscar.dicaprio.ui.actors.runnerstates;
 import com.badlogic.gdx.physics.box2d.Body;
 import oscar.dicaprio.mechanics.box2d.RunnerUserData;
 import oscar.dicaprio.ui.actors.RunnerActor;
+import oscar.dicaprio.utils.Constants;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -11,14 +12,18 @@ import oscar.dicaprio.ui.actors.RunnerActor;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Simple boring running state.
+ */
 public class RunningState extends AbstractAliveState {
 
   @Override public void handleInput(RunnerActor runner, int inputType) {
     switch (inputType) {
-      case INPUT_TYPE_LEFT_TOUCH_DOWN:
+      case Constants.INPUT_TYPE_LEFT_TOUCH_DOWN:
         dodge(runner);
         break;
-      case INPUT_TYPE_RIGHT_TOUCH_DOWN:
+      case Constants.INPUT_TYPE_RIGHT_TOUCH_DOWN:
         jump(runner);
         break;
     }

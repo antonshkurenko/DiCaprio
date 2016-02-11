@@ -11,6 +11,10 @@ import java.util.Random;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Generates random enemy, based on factories in the list
+ */
 public final class EnemyGenerator {
 
   /**

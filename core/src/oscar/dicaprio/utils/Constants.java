@@ -58,6 +58,21 @@ public class Constants {
   public static final float FLYING_ENEMY_Y = 3f;
   public static final Vector2 ENEMY_LINEAR_VELOCITY = new Vector2(-10f, 0);
 
+  /**
+   * Input constants
+   */
+  public static final int INPUT_TYPE_NOTHING = 0;
+  public static final int INPUT_TYPE_LEFT_TOUCH_DOWN = -1;
+  public static final int INPUT_TYPE_LEFT_TOUCH_UP = -2;
+  public static final int INPUT_TYPE_RIGHT_TOUCH_DOWN = 1;
+  public static final int INPUT_TYPE_RIGHT_TOUCH_UP = 2;
+
+  /**
+   * Event constants
+   */
+  public static final int EVENT_TYPE_COLLISION_RUNNER_WITH_GROUND = 1;
+  public static final int EVENT_TYPE_COLLISION_RUNNER_WITH_ENEMY = 2;
+
   private Constants() {
     // never instantiate
   }

@@ -106,6 +106,12 @@ public class WorldUtils {
     final float enemyHeight = enemyType.getHeight();
 
     body.setUserData(new EnemyUserData(enemyWidth, enemyHeight));
+
+    /**
+     * Since enemies are pretty different, I can't draw any of them here.
+     * Look inside the factories to see schemas.
+     */
+
     shape.setAsBox(enemyWidth / 2, enemyHeight / 2);
     body.createFixture(shape, enemyType.getDensity());
     body.resetMassData();

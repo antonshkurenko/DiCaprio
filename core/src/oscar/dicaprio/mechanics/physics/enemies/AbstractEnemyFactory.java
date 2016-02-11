@@ -7,13 +7,13 @@ package oscar.dicaprio.mechanics.physics.enemies;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * It holds the one instance of the enemy and returns it
+ */
 public abstract class AbstractEnemyFactory implements EnemyFactory {
 
-  protected final Enemy mCachedEnemyInstance;
-
-  public AbstractEnemyFactory() {
-    mCachedEnemyInstance = createEnemy();
-  }
+  protected final Enemy mCachedEnemyInstance = createEnemy();
 
   protected abstract Enemy createEnemy();
 

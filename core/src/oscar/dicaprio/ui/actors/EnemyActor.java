@@ -2,6 +2,7 @@ package oscar.dicaprio.ui.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import oscar.dicaprio.mechanics.box2d.EnemyUserData;
 
 /**
@@ -10,6 +11,10 @@ import oscar.dicaprio.mechanics.box2d.EnemyUserData;
  * Date: 2/9/16
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
+ */
+
+/**
+ * Actor, that consists of the physical body and physical params of the enemy
  */
 public class EnemyActor extends BaseActor {
 
@@ -23,6 +28,12 @@ public class EnemyActor extends BaseActor {
     return (EnemyUserData) mUserData;
   }
 
+  /**
+   * if {@link EnemyActor} will have different states (as {@link RunnerActor})
+   * create act method for every state
+   *
+   * @param delta time after last {@link Actor#act}
+   */
   @Override public void act(float delta) {
     super.act(delta);
     mBody.setLinearVelocity(getUserData().getLinearVelocity());

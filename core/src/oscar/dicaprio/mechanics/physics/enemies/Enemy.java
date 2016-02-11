@@ -9,6 +9,11 @@ import oscar.dicaprio.utils.Constants;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Enemy with it's physical options
+ * Structure with no methods
+ */
 public class Enemy {
   protected float mWidth;
   protected float mHeight;

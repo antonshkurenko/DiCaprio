@@ -1,6 +1,7 @@
 package oscar.dicaprio.ui.actors.runnerstates;
 
 import oscar.dicaprio.ui.actors.RunnerActor;
+import oscar.dicaprio.utils.Constants;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -12,9 +13,7 @@ import oscar.dicaprio.ui.actors.RunnerActor;
 public class JumpingState extends AbstractAliveState {
 
   @Override public void handleInput(RunnerActor runner, int inputType) {
-    switch (inputType) {
-      // todo(tonyshkurenko), 2/11/16: set Jumping -> Running in collider
-    }
+
   }
 
   @Override public void handleEvent(RunnerActor runner, int eventType) {
@@ -22,7 +21,7 @@ public class JumpingState extends AbstractAliveState {
     super.handleEvent(runner, eventType);
 
     switch (eventType) {
-      case EVENT_TYPE_COLLISION_WITH_GROUND:
+      case Constants.EVENT_TYPE_COLLISION_RUNNER_WITH_GROUND:
         land(runner);
         break;
     }
