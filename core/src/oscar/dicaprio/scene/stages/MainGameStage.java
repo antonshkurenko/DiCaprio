@@ -253,7 +253,6 @@ public class MainGameStage extends Stage implements ContactListener {
   //region Util step methods
   private void update(Body body) {
 
-    // todo(tonyshkurenko), 2/13/16: think about this
     boolean destroy = false;
 
     if (!BodyUtils.bodyInLeftBound(body)) {

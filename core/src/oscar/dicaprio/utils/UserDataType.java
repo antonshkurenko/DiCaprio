@@ -14,5 +14,6 @@ package oscar.dicaprio.utils;
 public enum UserDataType {
   GROUND,
   RUNNER,
-  ENEMY
+  ENEMY,
+  COIN
 }

@@ -32,7 +32,7 @@ public class EnemyActor extends BaseActor {
    * if {@link EnemyActor} will have different states (as {@link RunnerActor})
    * create act method for every state
    *
-   * @param delta time after last {@link Actor#act}
+   * @param delta time since last frame
    */
   @Override public void act(float delta) {
     super.act(delta);

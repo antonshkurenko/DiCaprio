@@ -1,6 +1,6 @@
 package oscar.dicaprio.mechanics.physics.enemies;
 
-import oscar.dicaprio.utils.Constants;
+import oscar.dicaprio.utils.C;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -22,7 +22,7 @@ public final class LongEnemyFactory extends AbstractEnemyFactory {
   @Override protected Enemy createEnemy() {
     return new Enemy.Builder()
         .setHeight(2f)
-        .setY(Constants.RUNNING_LONG_ENEMY_Y)
+        .setY(C.world.enemy_running_long_y)
         .createEnemy();
   }
 }

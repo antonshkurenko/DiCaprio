@@ -1,6 +1,6 @@
 package oscar.dicaprio.mechanics.physics.enemies;
 
-import oscar.dicaprio.utils.Constants;
+import oscar.dicaprio.utils.C;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -21,7 +21,7 @@ public final class SmallFlyingEnemyFactory extends AbstractEnemyFactory {
 
   @Override protected Enemy createEnemy() {
     return new Enemy.Builder()
-        .setY(Constants.FLYING_ENEMY_Y)
+        .setY(C.world.enemy_flying_y)
         .createEnemy();
   }
 }

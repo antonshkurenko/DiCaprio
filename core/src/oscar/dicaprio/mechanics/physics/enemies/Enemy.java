@@ -1,6 +1,6 @@
 package oscar.dicaprio.mechanics.physics.enemies;
 
-import oscar.dicaprio.utils.Constants;
+import oscar.dicaprio.utils.C;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -54,9 +54,9 @@ public class Enemy {
   public static class Builder {
     private float mWidth = 1f;
     private float mHeight = 1f;
-    private float mX = Constants.ENEMY_X;
-    private float mY = Constants.RUNNING_SHORT_ENEMY_Y;
-    private float mDensity = Constants.ENEMY_DENSITY;
+    private float mX = C.world.enemy_x;
+    private float mY = C.world.enemy_running_short_y;
+    private float mDensity = C.world.enemy_density;
 
     public Builder setWidth(float width) {
       this.mWidth = width;

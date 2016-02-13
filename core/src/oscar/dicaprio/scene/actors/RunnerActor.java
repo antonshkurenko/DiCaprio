@@ -6,7 +6,7 @@ import oscar.dicaprio.mechanics.box2d.RunnerUserData;
 import oscar.dicaprio.scene.actors.runnerstates.AbstractAliveState;
 import oscar.dicaprio.scene.actors.runnerstates.State;
 import oscar.dicaprio.scene.actors.runnerstates.StatesHolder;
-import oscar.dicaprio.utils.Constants;
+import oscar.dicaprio.utils.C;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -73,20 +73,34 @@ public class RunnerActor extends BaseActor {
     // runner and ground
     Gdx.app.log(TAG, "Collision: runner to ground");
 
-    handleEvent(Constants.EVENT_TYPE_COLLISION_RUNNER_WITH_GROUND);
+    handleEvent(C.event.event_collision_runner_with_ground);
   }
 
   @Override public void collideTo(EnemyActor enemy) {
     // runner and enemy
     Gdx.app.log(TAG, "Collision: runner to enemy");
 
-    handleEvent(Constants.EVENT_TYPE_COLLISION_RUNNER_WITH_ENEMY);
+    handleEvent(C.event.event_collision_runner_with_enemy);
   }
 
   @Override public void collideTo(RunnerActor runner) {
     // runner and runner
     // *should never happen
     Gdx.app.log(TAG, "Collision: runner to runner");
+  }
+
+  @Override public void collideTo(CoinActor coin) {
+    // runner and coin
+    Gdx.app.log(TAG, "Before next log (with coin)");
+    Gdx.app.log(TAG, "Collision: runner to coin, coin is collected: " + coin.isCollected()
+        + ", coinData.isRemovable(): " + coin.getUserData().isRemovable());
+
+    // collect coin inside, because it's related to state?
+    if (!coin.isCollected()) {
+      handleEvent(C.event.event_collision_runner_with_coin);
+
+      coin.collect();
+    }
   }
   //endregion
 }

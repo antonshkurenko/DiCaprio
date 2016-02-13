@@ -44,13 +44,36 @@ public class BodyUtils {
     }
   }
 
-  public static boolean bodyInBounds(Body body) {
+  public static boolean bodyIsCoin(Body body) {
+    try {
+      final UserData userData = (UserData) body.getUserData();
+      return userData != null && userData.getUserDataType() == UserDataType.COIN;
+    } catch (ClassCastException e) {
+      return false;
+    }
+  }
+
+  /**
+   *
+   *       |-------------------------
+   *       |
+   * left  |
+   * bound |
+   *       |
+   *       |_________________________
+   *
+   *
+   * @param body body to check
+   * @return is before left bound
+   */
+  public static boolean bodyInLeftBound(Body body) {
     try {
       final UserData userData = (UserData) body.getUserData();
 
       switch (userData.getUserDataType()) {
         case RUNNER:
         case ENEMY:
+        case COIN:
           return body.getPosition().x + userData.getWidth() / 2 > 0;
       }
     } catch (ClassCastException ignored) {
