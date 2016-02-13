@@ -2,7 +2,6 @@ package oscar.dicaprio.scene.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import oscar.dicaprio.mechanics.box2d.CoinUserData;
 
 /**
@@ -16,6 +15,8 @@ public class CoinActor extends BaseActor {
 
   private static final String TAG = CoinActor.class.getSimpleName();
 
+  private boolean mIsCollected = false;
+
   public CoinActor(Body body) {
     super(body);
   }
@@ -27,6 +28,15 @@ public class CoinActor extends BaseActor {
   @Override public void act(float delta) {
     super.act(delta);
     mBody.setLinearVelocity(getUserData().getLinearVelocity());
+  }
+
+  public void collect() {
+    mIsCollected = true;
+    getUserData().setRemovable();
+  }
+
+  public boolean isCollected() {
+    return mIsCollected;
   }
 
   //region Collider

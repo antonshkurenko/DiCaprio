@@ -1,7 +1,7 @@
 package oscar.dicaprio.scene.actors.runnerstates;
 
 import oscar.dicaprio.scene.actors.RunnerActor;
-import oscar.dicaprio.utils.Constants;
+import oscar.dicaprio.utils.C;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -17,7 +17,7 @@ public abstract class AbstractInAirState extends AbstractAliveState {
     super.handleEvent(runner, eventType);
 
     switch (eventType) {
-      case Constants.EVENT_TYPE_COLLISION_RUNNER_WITH_GROUND:
+      case C.event.event_collision_runner_with_ground:
         land(runner);
         break;
     }

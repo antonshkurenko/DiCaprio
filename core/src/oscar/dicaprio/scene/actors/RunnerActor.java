@@ -6,8 +6,7 @@ import oscar.dicaprio.mechanics.box2d.RunnerUserData;
 import oscar.dicaprio.scene.actors.runnerstates.AbstractAliveState;
 import oscar.dicaprio.scene.actors.runnerstates.State;
 import oscar.dicaprio.scene.actors.runnerstates.StatesHolder;
-import oscar.dicaprio.utils.Bank;
-import oscar.dicaprio.utils.Constants;
+import oscar.dicaprio.utils.C;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -74,14 +73,14 @@ public class RunnerActor extends BaseActor {
     // runner and ground
     Gdx.app.log(TAG, "Collision: runner to ground");
 
-    handleEvent(Constants.EVENT_TYPE_COLLISION_RUNNER_WITH_GROUND);
+    handleEvent(C.event.event_collision_runner_with_ground);
   }
 
   @Override public void collideTo(EnemyActor enemy) {
     // runner and enemy
     Gdx.app.log(TAG, "Collision: runner to enemy");
 
-    handleEvent(Constants.EVENT_TYPE_COLLISION_RUNNER_WITH_ENEMY);
+    handleEvent(C.event.event_collision_runner_with_enemy);
   }
 
   @Override public void collideTo(RunnerActor runner) {
@@ -92,21 +91,16 @@ public class RunnerActor extends BaseActor {
 
   @Override public void collideTo(CoinActor coin) {
     // runner and coin
-    Gdx.app.log(TAG, "Collision: runner to coin");
+    Gdx.app.log(TAG, "Before next log (with coin)");
+    Gdx.app.log(TAG, "Collision: runner to coin, coin is collected: " + coin.isCollected()
+        + ", coinData.isRemovable(): " + coin.getUserData().isRemovable());
 
-    // collect coin inside, because it's related to state
-    handleEvent(Constants.EVENT_TYPE_COLLISION_RUNNER_WITH_COIN);
+    // collect coin inside, because it's related to state?
+    if (!coin.isCollected()) {
+      handleEvent(C.event.event_collision_runner_with_coin);
 
-    // remove coin here
-    Bank.getInstance().incrementCoins();
-    // todo(tonyshkurenko), 2/11/16: coin can not be deleted, while world is stepping
-    /**
-     * https://www.iforce2d.net/b2dtut/sensors
-     * http://www.iforce2d.net/b2dtut/collision-filtering
-     * http://www.emanueleferonato.com/2010/02/25/box2d-flash-game-creation-tutorial-part-2/
-     * http://code.tutsplus.com/tutorials/build-a-physics-based-platformer-in-under-an-hour--active-7324
-     */
-    coin.getBody().getWorld().destroyBody(coin.getBody());
+      coin.collect();
+    }
   }
   //endregion
 }

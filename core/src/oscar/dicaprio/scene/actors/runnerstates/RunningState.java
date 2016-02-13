@@ -3,7 +3,7 @@ package oscar.dicaprio.scene.actors.runnerstates;
 import com.badlogic.gdx.physics.box2d.Body;
 import oscar.dicaprio.mechanics.box2d.RunnerUserData;
 import oscar.dicaprio.scene.actors.RunnerActor;
-import oscar.dicaprio.utils.Constants;
+import oscar.dicaprio.utils.C;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -20,10 +20,10 @@ public class RunningState extends AbstractAliveState {
 
   @Override public void handleInput(RunnerActor runner, int inputType) {
     switch (inputType) {
-      case Constants.INPUT_TYPE_LEFT_TOUCH_DOWN:
+      case C.input.input_left_touch_down:
         dodge(runner);
         break;
-      case Constants.INPUT_TYPE_RIGHT_TOUCH_DOWN:
+      case C.input.input_right_touch_down:
         jump(runner);
         break;
     }

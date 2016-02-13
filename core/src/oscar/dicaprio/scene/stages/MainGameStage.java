@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import oscar.dicaprio.mechanics.box2d.CoinUserData;
 import oscar.dicaprio.mechanics.physics.BodyUtils;
 import oscar.dicaprio.mechanics.physics.WorldUtils;
 import oscar.dicaprio.scene.actors.BaseActor;
@@ -21,7 +22,7 @@ import oscar.dicaprio.scene.actors.CoinActor;
 import oscar.dicaprio.scene.actors.EnemyActor;
 import oscar.dicaprio.scene.actors.GroundActor;
 import oscar.dicaprio.scene.actors.RunnerActor;
-import oscar.dicaprio.utils.Constants;
+import oscar.dicaprio.utils.C;
 
 /**
  * Created by: Anton Shkurenko (cullycross) Project: DiCaprio Date: 2/8/16 Code style:
@@ -33,8 +34,8 @@ public class MainGameStage extends Stage implements ContactListener {
   private static final String TAG = MainGameStage.class.getSimpleName();
 
   // This will be our viewport measurements while working with the debug renderer
-  //private static final int VIEWPORT_WIDTH = 20;
-  private static final int VIEWPORT_WIDTH = 40;
+  private static final int VIEWPORT_WIDTH = 20;
+  //private static final int VIEWPORT_WIDTH = 40;
   private static final int VIEWPORT_HEIGHT = 13;
 
   // Each Box2d step will simulate TIME_STEP seconds step in real life
@@ -73,9 +74,9 @@ public class MainGameStage extends Stage implements ContactListener {
   @Override public void act(float delta) {
     super.act(delta);
 
-    counter+=delta;
-    if(counter >= MORE) {
-      Gdx.app.log(TAG, "::act(delta), coin creation.");
+    counter += delta;
+    if (counter >= MORE) {
+      //Gdx.app.log(TAG, "::act(delta), coin creation.");
       createCoin();
       counter -= MORE;
     }
@@ -114,12 +115,11 @@ public class MainGameStage extends Stage implements ContactListener {
     // Need to get the actual coordinates
     final Vector3 touchPoint = translateScreenToWorldCoordinates(x, y);
 
-    int inputType = Constants.INPUT_TYPE_NOTHING;
-
+    int inputType = C.input.input_type_nothing;
     if (rightSideTouched(touchPoint.x, touchPoint.y)) {
-      inputType = Constants.INPUT_TYPE_RIGHT_TOUCH_DOWN;
+      inputType = C.input.input_right_touch_down;
     } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
-      inputType = Constants.INPUT_TYPE_LEFT_TOUCH_DOWN;
+      inputType = C.input.input_left_touch_down;
     }
 
     mRunner.handleInput(inputType);
@@ -131,11 +131,11 @@ public class MainGameStage extends Stage implements ContactListener {
 
     final Vector3 touchPoint = translateScreenToWorldCoordinates(x, y);
 
-    int inputType = Constants.INPUT_TYPE_NOTHING;
+    int inputType = C.input.input_type_nothing;
     if (rightSideTouched(touchPoint.x, touchPoint.y)) {
-      inputType = Constants.INPUT_TYPE_RIGHT_TOUCH_UP;
+      inputType = C.input.input_right_touch_up;
     } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
-      inputType = Constants.INPUT_TYPE_LEFT_TOUCH_UP;
+      inputType = C.input.input_left_touch_up;
     }
 
     mRunner.handleInput(inputType);
@@ -175,6 +175,9 @@ public class MainGameStage extends Stage implements ContactListener {
       }
 
       if (aActor != null && bActor != null) {
+        Gdx.app.log(TAG,
+            "Before collision: aActor = " + aActor.getClass().getSimpleName() + ", bActor = "
+                + bActor.getClass().getSimpleName());
         aActor.collide(bActor);
         break;
       }
@@ -249,14 +252,29 @@ public class MainGameStage extends Stage implements ContactListener {
 
   //region Util step methods
   private void update(Body body) {
+
+    boolean destroy = false;
+
     if (!BodyUtils.bodyInLeftBound(body)) {
-      if(mRunner.isAlive()) {
-        if (BodyUtils.bodyIsEnemy(body)) {
-          createEnemy();
-        }
+      if (mRunner.isAlive() && BodyUtils.bodyIsEnemy(body)) {
+        createEnemy();
       }
 
+      destroy = true;
+    }
+
+    if (BodyUtils.bodyIsCoin(body) && ((CoinUserData) body.getUserData()).isRemovable()) {
+      destroy = true;
+    }
+
+    if (destroy) {
+      final BaseActor actor = associateBodyWithActor(body);
+
       mWorld.destroyBody(body);
+
+      if (actor != null) {
+        getActors().removeValue(actor, false);
+      }
     }
   }
 
@@ -270,4 +288,24 @@ public class MainGameStage extends Stage implements ContactListener {
     addActor(coin);
   }
   //endregion
+
+  // todo(tonyshkurenko), 2/13/16: it can work very slow, rework pls
+  private BaseActor associateBodyWithActor(Body body) {
+    BaseActor actor = null;
+
+    final Array<Actor> actors = getActors();
+    Gdx.app.log(TAG, "Actors count: " + actors.size);
+    for (Actor a : actors) {
+      try {
+        if (((BaseActor) a).getBody().equals(body)) {
+          actor = (BaseActor) a;
+          break;
+        }
+      } catch (ClassCastException ignored) {
+
+      }
+    }
+
+    return actor;
+  }
 }

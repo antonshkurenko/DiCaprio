@@ -2,7 +2,7 @@ package oscar.dicaprio.scene.actors.runnerstates;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import oscar.dicaprio.scene.actors.RunnerActor;
-import oscar.dicaprio.utils.Constants;
+import oscar.dicaprio.utils.C;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -27,7 +27,7 @@ public interface State {
    *
    * @param runner runner object
    * @param inputType type of the input
-   * @see Constants
+   * @see C
    */
   void handleInput(RunnerActor runner, int inputType);
 
@@ -37,7 +37,7 @@ public interface State {
    *
    * @param runner runner object
    * @param eventType type of the event
-   * @see Constants
+   * @see C
    */
   void handleEvent(RunnerActor runner, int eventType);
 }

@@ -1,7 +1,7 @@
 package oscar.dicaprio.mechanics.box2d;
 
 import com.badlogic.gdx.math.Vector2;
-import oscar.dicaprio.utils.Constants;
+import oscar.dicaprio.utils.C;
 import oscar.dicaprio.utils.UserDataType;
 
 /**
@@ -17,16 +17,16 @@ import oscar.dicaprio.utils.UserDataType;
  */
 public class RunnerUserData extends UserData {
 
-  private final Vector2 mRunningPosition = new Vector2(Constants.RUNNER_X, Constants.RUNNER_Y);
+  private final Vector2 mRunningPosition = new Vector2(C.world.runner_x, C.world.runner_y);
 
   private final Vector2 mDodgePosition =
-      new Vector2(Constants.RUNNER_DODGE_X, Constants.RUNNER_DODGE_Y);
+      new Vector2(C.world.runner_dodge_x, C.world.runner_dodge_y);
 
   private Vector2 mJumpingLinearImpulse;
 
   public RunnerUserData(float width, float height) {
     super(width, height);
-    mJumpingLinearImpulse = Constants.RUNNER_JUMPING_LINEAR_IMPULSE;
+    mJumpingLinearImpulse = C.world.runner_jumping_linear_impulse;
   }
 
   @Override public UserDataType getUserDataType() {
@@ -44,7 +44,7 @@ public class RunnerUserData extends UserData {
   }
 
   public float getHitAngularImpulse() {
-    return Constants.RUNNER_HIT_ANGULAR_IMPULSE;
+    return C.world.runner_hit_angular_impulse;
   }
 
   public Vector2 getRunningPosition() {

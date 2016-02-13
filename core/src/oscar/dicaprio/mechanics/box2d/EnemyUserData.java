@@ -1,7 +1,7 @@
 package oscar.dicaprio.mechanics.box2d;
 
 import com.badlogic.gdx.math.Vector2;
-import oscar.dicaprio.utils.Constants;
+import oscar.dicaprio.utils.C;
 import oscar.dicaprio.utils.UserDataType;
 
 /**
@@ -21,7 +21,7 @@ public class EnemyUserData extends UserData {
 
   public EnemyUserData(float width, float height) {
     super(width, height);
-    mLinearVelocity = Constants.ENEMY_LINEAR_VELOCITY;
+    mLinearVelocity = C.world.enemy_linear_velocity;
   }
 
   @Override public UserDataType getUserDataType() {

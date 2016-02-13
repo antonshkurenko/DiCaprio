@@ -9,7 +9,7 @@ package oscar.dicaprio.mechanics.box2d;
  */
 
 import com.badlogic.gdx.math.Vector2;
-import oscar.dicaprio.utils.Constants;
+import oscar.dicaprio.utils.C;
 import oscar.dicaprio.utils.UserDataType;
 
 /**
@@ -19,9 +19,11 @@ public class CoinUserData extends UserData {
 
   private Vector2 mLinearVelocity;
 
-  public CoinUserData(float width, float height) {
-    super(width, height);
-    mLinearVelocity = Constants.COIN_LINEAR_VELOCITY;
+  private boolean mIsRemovable = false;
+
+  public CoinUserData(float diameter) {
+    super(diameter, diameter);
+    mLinearVelocity = C.world.coin_linear_velocity;
   }
 
   @Override public UserDataType getUserDataType() {
@@ -32,4 +34,13 @@ public class CoinUserData extends UserData {
   public Vector2 getLinearVelocity() {
     return mLinearVelocity;
   }
+
+  public boolean isRemovable() {
+    return mIsRemovable;
+  }
+
+  public void setRemovable() {
+    mIsRemovable = true;
+  }
+  //endregion
 }
