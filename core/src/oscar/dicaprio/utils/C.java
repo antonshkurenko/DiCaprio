@@ -9,9 +9,14 @@ import com.badlogic.gdx.math.Vector2;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Sad, that it's too long to implement own Annotation processor
+ * Trying to make something like android.R file
+ */
 public final class C {
 
-  public static class app {
+  public final static class app {
     /**
      * Desktop window size
      */
@@ -19,7 +24,7 @@ public final class C {
     public static final int app_height = 480;
   }
 
-  public static class world {
+  public final static class world {
     /**
      * World's gravity vector (g ~ 10)
      */
@@ -71,7 +76,7 @@ public final class C {
     public static final Vector2 coin_linear_velocity = new Vector2(-10f, 0);
   }
 
-  public static class input {
+  public final static class input {
 
     /**
      * Input constants
@@ -83,7 +88,7 @@ public final class C {
     public static final int input_right_touch_up = 2;
   }
 
-  public static class event {
+  public final static class event {
 
     /**
      * Event constants
