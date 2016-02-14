@@ -8,8 +8,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import oscar.dicaprio.mechanics.box2d.CoinUserData;
 import oscar.dicaprio.mechanics.box2d.EnemyUserData;
-import oscar.dicaprio.mechanics.box2d.GroundUserData;
-import oscar.dicaprio.mechanics.box2d.RunnerUserData;
 import oscar.dicaprio.mechanics.physics.enemies.Enemy;
 import oscar.dicaprio.mechanics.physics.enemies.EnemyGenerator;
 import oscar.dicaprio.utils.C;
@@ -49,8 +47,6 @@ public class WorldUtils {
     final Body body = world.createBody(bodyDef);
     final PolygonShape shape = new PolygonShape();
 
-    body.setUserData(new GroundUserData());
-
     /**
      *
      * Ground position
@@ -74,8 +70,6 @@ public class WorldUtils {
     final Body body = world.createBody(bodyDef);
     final PolygonShape shape = new PolygonShape();
 
-    body.setUserData(new RunnerUserData(C.world.runner_width, C.world.runner_height));
-
     /**
      * /\
      * |
@@ -94,8 +88,7 @@ public class WorldUtils {
     return body;
   }
 
-  public static Body createEnemy(World world) {
-    final Enemy enemyType = new EnemyGenerator().getRandomEnemy();
+  public static Body createEnemy(World world, Enemy enemyType) {
 
     final BodyDef bodyDef = new BodyDef();
     bodyDef.type = BodyDef.BodyType.KinematicBody;
@@ -106,8 +99,6 @@ public class WorldUtils {
 
     final float enemyWidth = enemyType.getWidth();
     final float enemyHeight = enemyType.getHeight();
-
-    body.setUserData(new EnemyUserData(enemyWidth, enemyHeight));
 
     /**
      * Since enemies are pretty different, I can't draw any of them here.
@@ -130,8 +121,6 @@ public class WorldUtils {
     final Body body = world.createBody(bodyDef);
     final CircleShape shape = new CircleShape();
 
-    body.setUserData(new CoinUserData(C.world.coin_diameter));
-
     /**
      * Draw coin
      *
@@ -147,8 +136,7 @@ public class WorldUtils {
      */
 
     shape.setRadius(C.world.coin_diameter / 2);
-    body.createFixture(shape, C.world.coin_density)
-        .setSensor(true);
+    body.createFixture(shape, C.world.coin_density).setSensor(true);
     body.resetMassData();
     shape.dispose();
     return body;

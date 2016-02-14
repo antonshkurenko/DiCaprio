@@ -20,11 +20,11 @@ public abstract class BaseActor extends CollidableActor {
   private static final String TAG = BaseActor.class.getSimpleName();
 
   protected final Body mBody;
-  protected final UserData mUserData;
+  protected UserData mUserData;
 
   public BaseActor(Body body) {
     this.mBody = body;
-    this.mUserData = ((UserData) body.getUserData());
+    this.mBody.setUserData(this);
   }
 
   public abstract UserData getUserData();

@@ -1,7 +1,5 @@
 package oscar.dicaprio.mechanics.box2d;
 
-import oscar.dicaprio.utils.UserDataType;
-
 /**
  * Created by: Anton Shkurenko (cullycross)
  * Project: DiCaprio
@@ -22,8 +20,6 @@ public abstract class UserData {
     mWidth = width;
     mHeight = height;
   }
-
-  public abstract UserDataType getUserDataType();
 
   //region Getters and setters
   public float getWidth() {

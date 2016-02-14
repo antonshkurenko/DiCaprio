@@ -32,6 +32,11 @@ public class RunnerActor extends BaseActor {
   }
 
   @Override public RunnerUserData getUserData() {
+
+    if(mUserData == null) {
+      mUserData = new RunnerUserData(C.world.runner_width, C.world.runner_height);
+    }
+
     return ((RunnerUserData) mUserData);
   }
 

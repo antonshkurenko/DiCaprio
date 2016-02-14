@@ -3,6 +3,7 @@ package oscar.dicaprio.scene.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import oscar.dicaprio.mechanics.box2d.CoinUserData;
+import oscar.dicaprio.utils.C;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -22,6 +23,11 @@ public class CoinActor extends BaseActor {
   }
 
   @Override public CoinUserData getUserData() {
+
+    if (mUserData == null) {
+      mUserData = new CoinUserData(C.world.coin_diameter);
+    }
+
     return (CoinUserData) mUserData;
   }
 
