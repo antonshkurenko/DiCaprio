@@ -2,7 +2,6 @@ package oscar.dicaprio.mechanics.box2d;
 
 import com.badlogic.gdx.math.Vector2;
 import oscar.dicaprio.utils.C;
-import oscar.dicaprio.utils.UserDataType;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -27,10 +26,6 @@ public class RunnerUserData extends UserData {
   public RunnerUserData(float width, float height) {
     super(width, height);
     mJumpingLinearImpulse = C.world.runner_jumping_linear_impulse;
-  }
-
-  @Override public UserDataType getUserDataType() {
-    return UserDataType.RUNNER;
   }
 
   //region Getters and setters

@@ -10,7 +10,6 @@ package oscar.dicaprio.mechanics.box2d;
 
 import com.badlogic.gdx.math.Vector2;
 import oscar.dicaprio.utils.C;
-import oscar.dicaprio.utils.UserDataType;
 
 /**
  * Class, that describes physical behavior and parameters of the enemy
@@ -24,10 +23,6 @@ public class CoinUserData extends UserData {
   public CoinUserData(float diameter) {
     super(diameter, diameter);
     mLinearVelocity = C.world.coin_linear_velocity;
-  }
-
-  @Override public UserDataType getUserDataType() {
-    return UserDataType.COIN;
   }
 
   //region Getters and setters

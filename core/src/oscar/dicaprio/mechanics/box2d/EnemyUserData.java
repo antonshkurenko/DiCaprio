@@ -2,7 +2,6 @@ package oscar.dicaprio.mechanics.box2d;
 
 import com.badlogic.gdx.math.Vector2;
 import oscar.dicaprio.utils.C;
-import oscar.dicaprio.utils.UserDataType;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -22,10 +21,6 @@ public class EnemyUserData extends UserData {
   public EnemyUserData(float width, float height) {
     super(width, height);
     mLinearVelocity = C.world.enemy_linear_velocity;
-  }
-
-  @Override public UserDataType getUserDataType() {
-    return UserDataType.ENEMY;
   }
 
   //region Getters and setters

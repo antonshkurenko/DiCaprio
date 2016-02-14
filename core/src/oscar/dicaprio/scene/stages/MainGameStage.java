@@ -11,12 +11,12 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
-import oscar.dicaprio.mechanics.box2d.CoinUserData;
 import oscar.dicaprio.mechanics.physics.BodyUtils;
 import oscar.dicaprio.mechanics.physics.WorldUtils;
+import oscar.dicaprio.mechanics.physics.enemies.Enemy;
+import oscar.dicaprio.mechanics.physics.enemies.EnemyGenerator;
 import oscar.dicaprio.scene.actors.BaseActor;
 import oscar.dicaprio.scene.actors.CoinActor;
 import oscar.dicaprio.scene.actors.EnemyActor;
@@ -46,6 +46,8 @@ public class MainGameStage extends Stage implements ContactListener {
 
   // Temp renderer
   private final Box2DDebugRenderer mRenderer = new Box2DDebugRenderer();
+
+  private final EnemyGenerator mEnemyGenerator = new EnemyGenerator();
 
   private OrthographicCamera mCamera;
 
@@ -151,36 +153,17 @@ public class MainGameStage extends Stage implements ContactListener {
     final Body a = contact.getFixtureA().getBody();
     final Body b = contact.getFixtureB().getBody();
 
-    BaseActor aActor = null;
-    BaseActor bActor = null;
+    try {
 
-    /**
-     * To prevent work with the a lot of ifs and different bodies
-     * Just find two bodies out of all actors (maybe pretty inefficient)
-     * Compare -> find two -> collide them
-     */
-    final Array<Actor> actors = getActors();
-    for (Actor actor : actors) {
+      final BaseActor aActor = ((BaseActor) a.getUserData());
+      final BaseActor bActor = ((BaseActor) b.getUserData());
+      Gdx.app.log(TAG,
+          "Before collision: aActor = " + aActor.getClass().getSimpleName() + ", bActor = " + bActor
+              .getClass()
+              .getSimpleName());
+      aActor.collide(bActor);
+    } catch (ClassCastException ignored) {
 
-      try {
-
-        final BaseActor baseActor = (BaseActor) actor;
-        if (baseActor.getBody().equals(a)) {
-          aActor = baseActor;
-        } else if (baseActor.getBody().equals(b)) {
-          bActor = baseActor;
-        }
-      } catch (ClassCastException ignored) {
-        // ClassCast > instanceof
-      }
-
-      if (aActor != null && bActor != null) {
-        Gdx.app.log(TAG,
-            "Before collision: aActor = " + aActor.getClass().getSimpleName() + ", bActor = "
-                + bActor.getClass().getSimpleName());
-        aActor.collide(bActor);
-        break;
-      }
     }
   }
 
@@ -263,23 +246,30 @@ public class MainGameStage extends Stage implements ContactListener {
       destroy = true;
     }
 
-    if (BodyUtils.bodyIsCoin(body) && ((CoinUserData) body.getUserData()).isRemovable()) {
+    if (BodyUtils.bodyIsCoin(body) && ((CoinActor) body.getUserData()).getUserData()
+        .isRemovable()) {
       destroy = true;
     }
 
     if (destroy) {
-      final BaseActor actor = associateBodyWithActor(body);
+      try {
+        // Idk why, I caught te exception below
+        //noinspection ConstantConditions
+        final BaseActor actor = ((BaseActor) body.getUserData());
 
-      mWorld.destroyBody(body);
-
-      if (actor != null) {
+        mWorld.destroyBody(body);
         getActors().removeValue(actor, false);
+      } catch (ClassCastException ignored) {
+
       }
     }
   }
 
   private void createEnemy() {
-    final EnemyActor enemy = new EnemyActor(WorldUtils.createEnemy(mWorld));
+
+    final Enemy enemyType = mEnemyGenerator.getRandomEnemy();
+    final EnemyActor enemy = new EnemyActor(WorldUtils.createEnemy(mWorld, enemyType),
+        enemyType); // todo(tonyshkurenko), 2/15/16: remove doubling
     addActor(enemy);
   }
 
@@ -288,24 +278,4 @@ public class MainGameStage extends Stage implements ContactListener {
     addActor(coin);
   }
   //endregion
-
-  // todo(tonyshkurenko), 2/13/16: it can work very slow, rework pls
-  private BaseActor associateBodyWithActor(Body body) {
-    BaseActor actor = null;
-
-    final Array<Actor> actors = getActors();
-    Gdx.app.log(TAG, "Actors count: " + actors.size);
-    for (Actor a : actors) {
-      try {
-        if (((BaseActor) a).getBody().equals(body)) {
-          actor = (BaseActor) a;
-          break;
-        }
-      } catch (ClassCastException ignored) {
-
-      }
-    }
-
-    return actor;
-  }
 }
