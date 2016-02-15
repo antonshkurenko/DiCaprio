@@ -21,6 +21,8 @@ public class RunnerUserData extends UserData {
   private final Vector2 mDodgePosition =
       new Vector2(C.world.runner_dodge_x, C.world.runner_dodge_y);
 
+  private Vector2 mLinearVelocity = C.world.runner_linear_velocity;
+
   private Vector2 mJumpingLinearImpulse;
 
   public RunnerUserData(float width, float height) {
@@ -28,7 +30,19 @@ public class RunnerUserData extends UserData {
     mJumpingLinearImpulse = C.world.runner_jumping_linear_impulse;
   }
 
+  public void resetSpeed() {
+    mLinearVelocity = C.world.runner_linear_velocity;
+  }
+
   //region Getters and setters
+  public void setLinearVelocity(Vector2 linearVelocity) {
+    mLinearVelocity = linearVelocity;
+  }
+
+  public Vector2 getLinearVelocity() {
+    return mLinearVelocity;
+  }
+
   public Vector2 getJumpingLinearImpulse() {
     return mJumpingLinearImpulse;
   }

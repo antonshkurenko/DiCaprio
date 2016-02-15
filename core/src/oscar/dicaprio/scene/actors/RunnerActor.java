@@ -19,6 +19,15 @@ import oscar.dicaprio.utils.C;
 /**
  * Actor, that consists of the physical body and physical params of the runner
  */
+
+/**
+ * two speeds?
+ * one speed forward
+ * one speed back
+ *
+ * when slow back speed increment
+ * when accelerate forward speed increment?
+ */
 public class RunnerActor extends BaseActor {
 
   private static final String TAG = RunnerActor.class.getSimpleName();
@@ -38,6 +47,14 @@ public class RunnerActor extends BaseActor {
     }
 
     return ((RunnerUserData) mUserData);
+  }
+
+  /**
+   * @param delta time since last frame
+   */
+  @Override public void act(float delta) {
+    super.act(delta);
+    mBody.setLinearVelocity(getUserData().getLinearVelocity());
   }
 
   //region Handling by state
