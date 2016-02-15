@@ -42,7 +42,7 @@ public class RunnerActor extends BaseActor {
 
   @Override public RunnerUserData getUserData() {
 
-    if(mUserData == null) {
+    if (mUserData == null) {
       mUserData = new RunnerUserData(C.world.runner_width, C.world.runner_height);
     }
 
@@ -54,7 +54,12 @@ public class RunnerActor extends BaseActor {
    */
   @Override public void act(float delta) {
     super.act(delta);
-    mBody.setLinearVelocity(getUserData().getLinearVelocity());
+    /**
+     * it sets new speed from scratch, so
+     * keep jumping velocity, to save jump state
+     * and move player forward or backward, related on velocity
+     */
+    mBody.setLinearVelocity(getUserData().getLinearVelocity().x, mBody.getLinearVelocity().y);
   }
 
   //region Handling by state

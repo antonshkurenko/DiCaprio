@@ -21,7 +21,14 @@ public class RunnerUserData extends UserData {
   private final Vector2 mDodgePosition =
       new Vector2(C.world.runner_dodge_x, C.world.runner_dodge_y);
 
-  private Vector2 mLinearVelocity = C.world.runner_linear_velocity;
+  /**
+   * to speed up not from zero, but from some value
+   */
+  private Vector2 mForwardLinearVelocity = C.world.runner_linear_forward_velocity;
+  /**
+   * to slow up not from zero, but from some value
+   */
+  private Vector2 mBackwardLinearVelocity = C.world.runner_linear_backward_velocity;
 
   private Vector2 mJumpingLinearImpulse;
 
@@ -31,16 +38,16 @@ public class RunnerUserData extends UserData {
   }
 
   public void resetSpeed() {
-    mLinearVelocity = C.world.runner_linear_velocity;
+    mForwardLinearVelocity = C.world.runner_linear_forward_velocity;
+    mBackwardLinearVelocity = C.world.runner_linear_backward_velocity;
   }
 
   //region Getters and setters
-  public void setLinearVelocity(Vector2 linearVelocity) {
-    mLinearVelocity = linearVelocity;
-  }
 
   public Vector2 getLinearVelocity() {
-    return mLinearVelocity;
+
+    final Vector2 velocity = new Vector2(mForwardLinearVelocity);
+    return velocity.sub(mBackwardLinearVelocity);
   }
 
   public Vector2 getJumpingLinearImpulse() {

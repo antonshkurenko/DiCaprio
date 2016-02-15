@@ -47,7 +47,8 @@ public final class C {
     public static final float runner_width = 1f;
     public static final float runner_height = 2f;
     public static final float runner_density = 0.5f;
-    public static final Vector2 runner_linear_velocity = new Vector2(0f, 0f);
+    public static final Vector2 runner_linear_forward_velocity = new Vector2(2f, 0f);
+    public static final Vector2 runner_linear_backward_velocity = new Vector2(2f, 0f);
     // jumping constants
     public static final float runner_gravity_scale = 3f;
     public static final Vector2 runner_jumping_linear_impulse = new Vector2(0f, 13f);
@@ -57,7 +58,7 @@ public final class C {
     // hit constants
     public static final float runner_hit_angular_impulse = 10f;
     // frozen constants
-    public static final Vector2 runner_linear_frozen_velocity = new Vector2(-2f, 0f);
+    // scale here
 
     /**
      * Enemy constants
