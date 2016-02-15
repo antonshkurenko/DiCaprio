@@ -1,7 +1,5 @@
 package oscar.dicaprio.mechanics.box2d;
 
-import oscar.dicaprio.utils.C;
-
 /**
  * Created by: Anton Shkurenko (cullycross)
  * Project: DiCaprio
@@ -10,12 +8,14 @@ import oscar.dicaprio.utils.C;
  * Follow me: @tonyshkurenko
  */
 
-/**
- * Class, that describes physical behavior and parameters of the ground
- */
-public class GroundUserData extends UserData {
+import oscar.dicaprio.utils.C;
 
-  public GroundUserData() {
-    super(C.world.ground_width, C.world.ground_height);
+/**
+ * Class, that describes physical behavior and parameters of the iceberg
+ */
+public class IcebergUserData extends UserData {
+
+  public IcebergUserData() {
+    super(C.world.iceberg_width, C.world.iceberg_height);
   }
 }

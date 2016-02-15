@@ -21,13 +21,16 @@ import oscar.dicaprio.scene.actors.BaseActor;
 import oscar.dicaprio.scene.actors.CoinActor;
 import oscar.dicaprio.scene.actors.EnemyActor;
 import oscar.dicaprio.scene.actors.GroundActor;
+import oscar.dicaprio.scene.actors.IcebergActor;
 import oscar.dicaprio.scene.actors.RunnerActor;
 import oscar.dicaprio.utils.C;
 
 /**
- * Created by: Anton Shkurenko (cullycross) Project: DiCaprio Date: 2/8/16 Code style:
- * SquareAndroid
- * (https://github.com/square/java-code-styles) Follow me: @tonyshkurenko
+ * Created by: Anton Shkurenko (cullycross)
+ * Project: DiCaprio
+ * Date: 2/8/16
+ * Code style: SquareAndroid (https://github.com/square/java-code-styles)
+ * Follow me: @tonyshkurenko
  */
 public class MainGameStage extends Stage implements ContactListener {
 
@@ -35,7 +38,6 @@ public class MainGameStage extends Stage implements ContactListener {
 
   // This will be our viewport measurements while working with the debug renderer
   private static final int VIEWPORT_WIDTH = 20;
-  //private static final int VIEWPORT_WIDTH = 40;
   private static final int VIEWPORT_HEIGHT = 13;
 
   // Each Box2d step will simulate TIME_STEP seconds step in real life
@@ -53,6 +55,7 @@ public class MainGameStage extends Stage implements ContactListener {
 
   private World mWorld;
   private GroundActor mGround;
+  private IcebergActor mIceberg;
   private RunnerActor mRunner;
 
   private float mAccumulator = 0f;
@@ -216,7 +219,8 @@ public class MainGameStage extends Stage implements ContactListener {
   }
 
   private void setUpIceberg() {
-    WorldUtils.createIceberg(mWorld);
+    mIceberg = new IcebergActor(WorldUtils.createIceberg(mWorld));
+    addActor(mIceberg);
   }
 
   private void setUpRunner() {

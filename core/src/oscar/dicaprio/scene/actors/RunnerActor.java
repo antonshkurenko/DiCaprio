@@ -88,15 +88,8 @@ public class RunnerActor extends BaseActor {
     handleEvent(C.event.event_collision_runner_with_enemy);
   }
 
-  @Override public void collideTo(RunnerActor runner) {
-    // runner and runner
-    // *should never happen
-    Gdx.app.log(TAG, "Collision: runner to runner");
-  }
-
   @Override public void collideTo(CoinActor coin) {
     // runner and coin
-    Gdx.app.log(TAG, "Before next log (with coin)");
     Gdx.app.log(TAG, "Collision: runner to coin, coin is collected: " + coin.isCollected()
         + ", coinData.isRemovable(): " + coin.getUserData().isRemovable());
 
@@ -106,6 +99,18 @@ public class RunnerActor extends BaseActor {
 
       coin.collect();
     }
+  }
+
+  @Override public void collideTo(IcebergActor iceberg) {
+    // runner and runner
+    // *should never happen
+    Gdx.app.log(TAG, "Collision: runner to iceberg");
+  }
+
+  @Override public void collideTo(RunnerActor runner) {
+    // runner and runner
+    // *should never happen
+    Gdx.app.log(TAG, "Collision: runner to runner");
   }
   //endregion
 }

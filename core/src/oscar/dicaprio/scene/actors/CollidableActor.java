@@ -41,6 +41,10 @@ public abstract class CollidableActor extends Actor {
     collide(coin);
   }
 
+  public void collideTo(IcebergActor iceberg) {
+    collide(iceberg);
+  }
+
   public void collideTo(RunnerActor runner) {
     collide(runner);
   }

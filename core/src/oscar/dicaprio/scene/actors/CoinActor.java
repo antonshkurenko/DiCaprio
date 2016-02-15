@@ -36,6 +36,7 @@ public class CoinActor extends BaseActor {
     mBody.setLinearVelocity(getUserData().getLinearVelocity());
   }
 
+  //region Coin region
   public void collect() {
     mIsCollected = true;
     getUserData().setRemovable();
@@ -44,6 +45,7 @@ public class CoinActor extends BaseActor {
   public boolean isCollected() {
     return mIsCollected;
   }
+  //endregion
 
   //region Collider
   @Override public void collide(CollidableActor c) {
