@@ -33,16 +33,25 @@ public final class C {
     /**
      * Ground constants
      */
-    public static final float ground_x = 0;
-    public static final float ground_y = 0;
+    public static final float ground_x = 0f;
+    public static final float ground_y = 0f;
     public static final float ground_width = 50f; // in meters
     public static final float ground_height = 2f; // in meters
     public static final float ground_density = 0f;
 
     /**
+     * Iceberg constants
+     */
+    public static final float iceberg_x = 0f;
+    public static final float iceberg_y = ground_y + ground_height;
+    public static final float iceberg_width = 2f; // in meters
+    public static final float iceberg_height = 7f; // in meters
+    public static final float iceberg_density = 0f;
+
+    /**
      * Runner constants
      */
-    public static final float runner_x = 2;
+    public static final float runner_x = 6.5f;
     public static final float runner_y = ground_y + ground_height;
     public static final float runner_width = 1f;
     public static final float runner_height = 2f;
@@ -51,7 +60,7 @@ public final class C {
     public static final float runner_gravity_scale = 3f;
     public static final Vector2 runner_jumping_linear_impulse = new Vector2(0, 13f);
     // dodging constants
-    public static final float runner_dodge_x = 2f;
+    public static final float runner_dodge_x = 6.5f;
     public static final float runner_dodge_y = 1.5f;
     // hit constants
     public static final float runner_hit_angular_impulse = 10f;

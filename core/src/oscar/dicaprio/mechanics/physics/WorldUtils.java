@@ -6,10 +6,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import oscar.dicaprio.mechanics.box2d.CoinUserData;
-import oscar.dicaprio.mechanics.box2d.EnemyUserData;
 import oscar.dicaprio.mechanics.physics.enemies.Enemy;
-import oscar.dicaprio.mechanics.physics.enemies.EnemyGenerator;
 import oscar.dicaprio.utils.C;
 
 /**
@@ -58,6 +55,32 @@ public class WorldUtils {
      */
     shape.setAsBox(C.world.ground_width / 2f, C.world.ground_height / 2f);
     body.createFixture(shape, C.world.ground_density);
+    shape.dispose();
+    return body;
+  }
+
+  public static Body createIceberg(World world) {
+
+    final BodyDef bodyDef = new BodyDef();
+    bodyDef.position.set(new Vector2(C.world.iceberg_x, C.world.iceberg_y));
+
+    final Body body = world.createBody(bodyDef);
+    final PolygonShape shape = new PolygonShape();
+
+    /**
+     *
+     * Iceberg position
+     * /\
+     * |
+     * |--
+     * | |
+     * | |
+     * |---------------------|
+     * |                     |
+     * ----------------------->
+     */
+    shape.setAsBox(C.world.iceberg_width / 2f, C.world.iceberg_height / 2f);
+    body.createFixture(shape, C.world.iceberg_density).setSensor(true);
     shape.dispose();
     return body;
   }

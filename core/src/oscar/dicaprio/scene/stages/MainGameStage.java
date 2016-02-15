@@ -157,11 +157,13 @@ public class MainGameStage extends Stage implements ContactListener {
 
       final BaseActor aActor = ((BaseActor) a.getUserData());
       final BaseActor bActor = ((BaseActor) b.getUserData());
-      Gdx.app.log(TAG,
-          "Before collision: aActor = " + aActor.getClass().getSimpleName() + ", bActor = " + bActor
-              .getClass()
-              .getSimpleName());
-      aActor.collide(bActor);
+      if (aActor != null && bActor != null) {
+        Gdx.app.log(TAG,
+            "Before collision: aActor = " + aActor.getClass().getSimpleName() + ", bActor = "
+                + bActor.getClass().getSimpleName());
+
+        aActor.collide(bActor);
+      }
     } catch (ClassCastException ignored) {
 
     }
@@ -204,12 +206,17 @@ public class MainGameStage extends Stage implements ContactListener {
     mWorld = WorldUtils.createWorld();
     mWorld.setContactListener(this);
     setUpGround();
+    setUpIceberg();
     setUpRunner();
   }
 
   private void setUpGround() {
     mGround = new GroundActor(WorldUtils.createGround(mWorld));
     addActor(mGround);
+  }
+
+  private void setUpIceberg() {
+    WorldUtils.createIceberg(mWorld);
   }
 
   private void setUpRunner() {
@@ -253,7 +260,7 @@ public class MainGameStage extends Stage implements ContactListener {
 
     if (destroy) {
       try {
-        // Idk why, I caught te exception below
+        // Idk why, I caught the exception below
         //noinspection ConstantConditions
         final BaseActor actor = ((BaseActor) body.getUserData());
 
