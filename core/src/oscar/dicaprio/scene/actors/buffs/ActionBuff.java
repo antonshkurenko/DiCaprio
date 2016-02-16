@@ -11,6 +11,10 @@ import oscar.dicaprio.scene.actors.BaseActor;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Buff, which gives you percent amount in the update method
+ */
 public abstract class ActionBuff extends TemporalAction {
 
   public ActionBuff(BaseActor actor, float duration) {
@@ -20,19 +24,5 @@ public abstract class ActionBuff extends TemporalAction {
   public ActionBuff(BaseActor actor, float duration, Interpolation interpolation) {
     super(duration, interpolation);
     setActor(actor);
-  }
-
-  @Override protected void begin() {
-    super.begin();
-
-  }
-
-  @Override protected void end() {
-    super.end();
-
-  }
-
-  @Override protected void update(float percent) {
-
   }
 }

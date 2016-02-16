@@ -58,7 +58,7 @@ public final class C {
     // hit constants
     public static final float runner_hit_angular_impulse = 10f;
     // frozen constants
-    // scale here
+    public static final Vector2 runner_max_slow_speed = new Vector2(2f, 0f);
 
     /**
      * Enemy constants

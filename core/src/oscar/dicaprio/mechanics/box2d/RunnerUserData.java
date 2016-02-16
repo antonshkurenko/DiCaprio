@@ -50,6 +50,22 @@ public class RunnerUserData extends UserData {
     return velocity.sub(mBackwardLinearVelocity);
   }
 
+  public Vector2 getForwardLinearVelocity() {
+    return mForwardLinearVelocity;
+  }
+
+  public void setForwardLinearVelocity(Vector2 forwardLinearVelocity) {
+    mForwardLinearVelocity.set(forwardLinearVelocity);
+  }
+
+  public Vector2 getBackwardLinearVelocity() {
+    return mBackwardLinearVelocity;
+  }
+
+  public void setBackwardLinearVelocity(Vector2 backwardLinearVelocity) {
+    mBackwardLinearVelocity.set(backwardLinearVelocity);
+  }
+
   public Vector2 getJumpingLinearImpulse() {
     return mJumpingLinearImpulse;
   }
