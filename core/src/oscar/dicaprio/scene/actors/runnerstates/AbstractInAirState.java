@@ -1,6 +1,7 @@
 package oscar.dicaprio.scene.actors.runnerstates;
 
 import oscar.dicaprio.scene.actors.RunnerActor;
+import oscar.dicaprio.scene.actors.buffs.RelativeSlowBuff;
 import oscar.dicaprio.utils.C;
 
 /**

@@ -79,11 +79,11 @@ public class RunnerUserData extends UserData {
     return C.world.runner_hit_angular_impulse;
   }
 
-  public Vector2 getRunningPosition() {
+  public Vector2 getStartRunningPosition() {
     return mRunningPosition;
   }
 
-  public Vector2 getDodgePosition() {
+  public Vector2 getStartDodgePosition() {
     return mDodgePosition;
   }
   //endregion

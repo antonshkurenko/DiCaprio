@@ -1,5 +1,7 @@
 package oscar.dicaprio.scene.actors.runnerstates;
 
+import com.badlogic.gdx.physics.box2d.Body;
+import oscar.dicaprio.mechanics.box2d.RunnerUserData;
 import oscar.dicaprio.scene.actors.RunnerActor;
 import oscar.dicaprio.utils.C;
 
@@ -21,7 +23,10 @@ public class DodgingState extends AbstractAliveState {
   }
 
   protected void run(RunnerActor runner) {
-    runner.getBody().setTransform(runner.getUserData().getRunningPosition(), 0f);
+    final Body body = runner.getBody();
+    final RunnerUserData userData = runner.getUserData();
+
+    body.setTransform(body.getPosition().x, userData.getStartRunningPosition().y, 0f);
     runner.setState(runner.getStatesHolder().getRunningState());
   }
 }
