@@ -104,7 +104,7 @@ public class WorldUtils {
   public static Body createSnowball(World world) {
 
     final BodyDef bodyDef = new BodyDef();
-    bodyDef.type = BodyDef.BodyType.KinematicBody;
+    bodyDef.type = BodyDef.BodyType.DynamicBody;
     bodyDef.position.set(new Vector2(C.world.snowball_x, C.world.snowball_y));
 
     final Body body = world.createBody(bodyDef);
