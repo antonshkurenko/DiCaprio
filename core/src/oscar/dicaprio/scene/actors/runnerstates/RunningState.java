@@ -43,7 +43,7 @@ public class RunningState extends AbstractAliveState {
     final Body body = runner.getBody();
     final RunnerUserData userData = runner.getUserData();
 
-    body.setTransform(body.getPosition().x, userData.getStartDodgePosition().y,
+    body.setTransform(body.getPosition().x, userData.getDodgingY(),
         userData.getDodgeAngle());
 
     runner.setState(runner.getStatesHolder().getDodgingState());

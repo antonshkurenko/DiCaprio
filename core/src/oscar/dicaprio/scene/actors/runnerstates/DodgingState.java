@@ -26,7 +26,7 @@ public class DodgingState extends AbstractAliveState {
     final Body body = runner.getBody();
     final RunnerUserData userData = runner.getUserData();
 
-    body.setTransform(body.getPosition().x, userData.getStartRunningPosition().y, 0f);
+    body.setTransform(body.getPosition().x, userData.getRunningY(), 0f);
     runner.setState(runner.getStatesHolder().getRunningState());
   }
 }

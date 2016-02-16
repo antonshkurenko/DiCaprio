@@ -16,11 +16,6 @@ import oscar.dicaprio.utils.C;
  */
 public class RunnerUserData extends UserData {
 
-  private final Vector2 mRunningPosition = new Vector2(C.world.runner_x, C.world.runner_y);
-
-  private final Vector2 mDodgePosition =
-      new Vector2(C.world.runner_dodge_x, C.world.runner_dodge_y);
-
   /**
    * to speed up not from zero, but from some value
    */
@@ -79,12 +74,12 @@ public class RunnerUserData extends UserData {
     return C.world.runner_hit_angular_impulse;
   }
 
-  public Vector2 getStartRunningPosition() {
-    return mRunningPosition;
+  public float getRunningY() {
+    return C.world.runner_y;
   }
 
-  public Vector2 getStartDodgePosition() {
-    return mDodgePosition;
+  public float getDodgingY() {
+    return C.world.runner_dodge_y;
   }
   //endregion
 }
