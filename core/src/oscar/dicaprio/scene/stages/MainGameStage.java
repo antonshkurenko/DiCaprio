@@ -13,6 +13,9 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import oscar.dicaprio.mechanics.physics.BodyUtils;
 import oscar.dicaprio.mechanics.physics.WorldUtils;
 import oscar.dicaprio.mechanics.physics.enemies.Enemy;
@@ -22,7 +25,9 @@ import oscar.dicaprio.scene.actors.CoinActor;
 import oscar.dicaprio.scene.actors.EnemyActor;
 import oscar.dicaprio.scene.actors.GroundActor;
 import oscar.dicaprio.scene.actors.IcebergActor;
+import oscar.dicaprio.scene.actors.Removable;
 import oscar.dicaprio.scene.actors.RunnerActor;
+import oscar.dicaprio.scene.actors.SnowballActor;
 import oscar.dicaprio.utils.C;
 
 /**
@@ -50,6 +55,8 @@ public class MainGameStage extends Stage implements ContactListener {
   private final Box2DDebugRenderer mRenderer = new Box2DDebugRenderer();
 
   private final EnemyGenerator mEnemyGenerator = new EnemyGenerator();
+
+  private final List<Removable> mRemovables = new ArrayList<>();
 
   private OrthographicCamera mCamera;
 
@@ -83,7 +90,19 @@ public class MainGameStage extends Stage implements ContactListener {
     if (counter >= MORE) {
       //Gdx.app.log(TAG, "::act(delta), coin creation.");
       createCoin();
+      createSnowball();
       counter -= MORE;
+    }
+
+    final Iterator<Removable> iter = mRemovables.iterator();
+    while (iter.hasNext()) {
+      final Removable removable = iter.next();
+      if (removable.isRemovable()) {
+        iter.remove();
+        final BaseActor baseActor = (BaseActor) removable;
+        getActors().removeValue(baseActor, false);
+        mWorld.destroyBody(baseActor.getBody());
+      }
     }
 
     final Array<Body> bodies = new Array<>(mWorld.getBodyCount());
@@ -257,11 +276,6 @@ public class MainGameStage extends Stage implements ContactListener {
       destroy = true;
     }
 
-    if (BodyUtils.bodyIsCoin(body) && ((CoinActor) body.getUserData()).getUserData()
-        .isRemovable()) {
-      destroy = true;
-    }
-
     if (destroy) {
       try {
         // Idk why, I caught the exception below
@@ -287,6 +301,13 @@ public class MainGameStage extends Stage implements ContactListener {
   private void createCoin() {
     final CoinActor coin = new CoinActor(WorldUtils.createCoin(mWorld));
     addActor(coin);
+    mRemovables.add(coin);
+  }
+
+  private void createSnowball() {
+    final SnowballActor snowball = SnowballActor.createRandom(WorldUtils.createSnowball(mWorld));
+    addActor(snowball);
+    mRemovables.add(snowball);
   }
   //endregion
 }

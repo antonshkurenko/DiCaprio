@@ -29,14 +29,10 @@ public class RunnerActor extends BaseActor {
 
   public RunnerActor(Body body) {
     super(body);
+    mUserData = new RunnerUserData(C.world.runner_width, C.world.runner_height);
   }
 
   @Override public RunnerUserData getUserData() {
-
-    if(mUserData == null) {
-      mUserData = new RunnerUserData(C.world.runner_width, C.world.runner_height);
-    }
-
     return ((RunnerUserData) mUserData);
   }
 
@@ -90,14 +86,13 @@ public class RunnerActor extends BaseActor {
 
   @Override public void collideTo(CoinActor coin) {
     // runner and coin
-    Gdx.app.log(TAG, "Collision: runner to coin, coin is collected: " + coin.isCollected()
-        + ", coinData.isRemovable(): " + coin.getUserData().isRemovable());
+    Gdx.app.log(TAG, "Collision: runner to coin, coin is collected: " + coin.isRemovable());
 
     // collect coin inside, because it's related to state?
-    if (!coin.isCollected()) {
+    if (!coin.isRemovable()) {
       handleEvent(C.event.event_collision_runner_with_coin);
 
-      coin.collect();
+      coin.setRemovable();
     }
   }
 
@@ -105,6 +100,19 @@ public class RunnerActor extends BaseActor {
     // runner and runner
     // *should never happen
     Gdx.app.log(TAG, "Collision: runner to iceberg");
+
+    handleEvent(C.event.event_collision_runner_with_iceberg);
+  }
+
+  @Override public void collideTo(SnowballActor snowball) {
+    // runner and snowball
+    Gdx.app.log(TAG, "Collision: runner to coin, coin is collected: " + snowball.isRemovable());
+
+    if (!snowball.isRemovable()) {
+      handleEvent(C.event.event_collision_runner_with_snowball);
+
+      snowball.setRemovable();
+    }
   }
 
   @Override public void collideTo(RunnerActor runner) {

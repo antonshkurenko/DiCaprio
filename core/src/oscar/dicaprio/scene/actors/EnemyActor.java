@@ -22,19 +22,12 @@ public class EnemyActor extends BaseActor {
 
   private static final String TAG = EnemyActor.class.getSimpleName();
 
-  private final Enemy mEnemy;
-
   public EnemyActor(Body body, Enemy enemy) {
     super(body);
-    mEnemy = enemy;
+    mUserData = new EnemyUserData(enemy.getWidth(), enemy.getHeight());
   }
 
   @Override public EnemyUserData getUserData() {
-
-    if(mUserData == null) {
-      mUserData = new EnemyUserData(mEnemy.getWidth(), mEnemy.getHeight());
-    }
-
     return (EnemyUserData) mUserData;
   }
 

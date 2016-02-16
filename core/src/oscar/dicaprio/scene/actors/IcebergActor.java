@@ -17,14 +17,10 @@ public class IcebergActor extends BaseActor {
 
   public IcebergActor(Body body) {
     super(body);
+    mUserData = new IcebergUserData();
   }
 
   @Override public IcebergUserData getUserData() {
-
-    if (mUserData == null) {
-      mUserData = new IcebergUserData();
-    }
-
     return (IcebergUserData) mUserData;
   }
 
@@ -35,32 +31,31 @@ public class IcebergActor extends BaseActor {
 
   @Override public void collideTo(BaseActor base) {
 
-    // coin and base
+    // iceberg and base
     Gdx.app.log(TAG, "Collision: iceberg to base");
   }
 
   @Override public void collideTo(GroundActor ground) {
 
-    // coin and ground
+    // iceberg and ground
     Gdx.app.log(TAG, "Collision: iceberg to ground");
   }
 
   @Override public void collideTo(EnemyActor enemy) {
 
-    // coin and enemy
+    // iceberg and enemy
     Gdx.app.log(TAG, "Collision: iceberg to enemy");
   }
 
   @Override public void collideTo(CoinActor coin) {
 
-    // coin and coin
-    // *should never happen
+    // iceberg and coin
     Gdx.app.log(TAG, "Collision: iceberg to coin");
   }
 
-  @Override public void collideTo(IcebergActor coin) {
+  @Override public void collideTo(IcebergActor iceberg) {
 
-    // coin and coin
+    // iceberg and iceberg
     // *should never happen
     Gdx.app.log(TAG, "Collision: iceberg to iceberg");
   }

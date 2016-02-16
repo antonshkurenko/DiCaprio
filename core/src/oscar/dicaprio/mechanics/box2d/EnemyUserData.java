@@ -20,7 +20,7 @@ public class EnemyUserData extends UserData {
 
   public EnemyUserData(float width, float height) {
     super(width, height);
-    mLinearVelocity = C.world.enemy_linear_velocity;
+    mLinearVelocity = new Vector2(C.world.enemy_linear_velocity);
   }
 
   //region Getters and setters

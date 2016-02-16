@@ -25,7 +25,7 @@ public class RunnerUserData extends UserData {
 
   public RunnerUserData(float width, float height) {
     super(width, height);
-    mJumpingLinearImpulse = C.world.runner_jumping_linear_impulse;
+    mJumpingLinearImpulse = new Vector2(C.world.runner_jumping_linear_impulse);
   }
 
   //region Getters and setters

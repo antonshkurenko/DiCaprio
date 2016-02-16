@@ -21,14 +21,10 @@ public class GroundActor extends BaseActor {
 
   public GroundActor(Body body) {
     super(body);
+    mUserData = new GroundUserData();
   }
 
   @Override public GroundUserData getUserData() {
-
-    if (mUserData == null) {
-      mUserData = new GroundUserData();
-    }
-
     return ((GroundUserData) mUserData);
   }
 
