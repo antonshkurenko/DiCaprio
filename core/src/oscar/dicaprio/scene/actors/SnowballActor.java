@@ -13,10 +13,8 @@ import oscar.dicaprio.utils.C;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
-public class SnowballActor extends BaseActor implements Removable {
+public class SnowballActor extends BaseRemovableActor {
   private static final String TAG = CoinActor.class.getSimpleName();
-
-  private boolean mIsStriked = false;
 
   public static SnowballActor createRandom(Body body) {
     return new SnowballActor(body, new Random().nextInt(100) - 60f);
@@ -35,16 +33,6 @@ public class SnowballActor extends BaseActor implements Removable {
     super.act(delta);
     mBody.setLinearVelocity(getUserData().getLinearVelocity());
   }
-
-  //region Implements Removable
-  @Override public void setRemovable() {
-    mIsStriked = true;
-  }
-
-  @Override public boolean isRemovable() {
-    return mIsStriked;
-  }
-  //endregion
 
   //region Collider
   @Override public void collide(CollidableActor c) {

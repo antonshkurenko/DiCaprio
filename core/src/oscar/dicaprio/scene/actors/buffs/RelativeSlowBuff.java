@@ -35,12 +35,11 @@ public class RelativeSlowBuff extends RelativeActionBuff {
   }
   //endregion
 
-  //region @Override RelativeActionBuff
+  //region Extends RelativeActionBuff
   @Override protected void updateRelative(float percentDelta) {
     try {
       final RunnerUserData runner = ((RunnerActor) actor).getUserData();
       final Vector2 slow = new Vector2(mMaxSlow).scl(percentDelta);
-      //Gdx.app.log(TAG, "This step slow: " + slow + ", percentDelta: " + percentDelta);
 
       runner.setBackwardLinearVelocity(runner.getBackwardLinearVelocity().sub(slow));
 
@@ -57,19 +56,6 @@ public class RelativeSlowBuff extends RelativeActionBuff {
       runner.setBackwardLinearVelocity(
           runner.getBackwardLinearVelocity().add(mMaxSlow));
 
-      //Gdx.app.log(TAG, "Runner speed before slow: " + runner.getLinearVelocity() + ", backward: " + runner.getBackwardLinearVelocity());
-    } catch (ClassCastException e) {
-      throw new RuntimeException("SlowBuff if applicable only to the RunnerActor.");
-    }
-  }
-
-  @Override protected void end() {
-    super.end();
-
-    try {
-      final RunnerUserData runner = ((RunnerActor) actor).getUserData();
-
-      //Gdx.app.log(TAG, "Runner speed: " + runner.getLinearVelocity() + ", backward: " + runner.getBackwardLinearVelocity());
     } catch (ClassCastException e) {
       throw new RuntimeException("SlowBuff if applicable only to the RunnerActor.");
     }

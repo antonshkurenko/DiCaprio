@@ -12,11 +12,9 @@ import oscar.dicaprio.utils.C;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
-public class CoinActor extends BaseActor implements Removable {
+public class CoinActor extends BaseRemovableActor {
 
   private static final String TAG = CoinActor.class.getSimpleName();
-
-  private boolean mIsCollected = false;
 
   public CoinActor(Body body) {
     super(body);
@@ -31,17 +29,6 @@ public class CoinActor extends BaseActor implements Removable {
     super.act(delta);
     mBody.setLinearVelocity(getUserData().getLinearVelocity());
   }
-
-  //region Implements Removable
-  @Override public void setRemovable() {
-    mIsCollected = true;
-  }
-
-  @Override public boolean isRemovable() {
-    return mIsCollected;
-
-  }
-  //endregion
 
   //region Collider
   @Override public void collide(CollidableActor c) {
