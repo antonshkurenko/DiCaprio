@@ -23,6 +23,7 @@ public abstract class BaseRemovableActor extends BaseActor implements Removable 
     if (isRemovable()) {
       this.remove();
       mBody.getWorld().destroyBody(mBody);
+      mBody = null;
     }
   }
 

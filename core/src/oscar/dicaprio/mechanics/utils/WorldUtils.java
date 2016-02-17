@@ -208,9 +208,7 @@ public class WorldUtils {
     bodyDef.type = BodyDef.BodyType.KinematicBody;
     bodyDef.position.set(new Vector2(xPosition, C.world.coin_y));
 
-    Gdx.app.log(TAG, "Before coin creation. Position = " + xPosition);
     final Body body = world.createBody(bodyDef);
-    Gdx.app.log(TAG, "After coin creation.");
     final CircleShape shape = new CircleShape();
 
     /**

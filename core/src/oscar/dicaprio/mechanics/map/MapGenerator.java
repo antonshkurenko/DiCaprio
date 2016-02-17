@@ -71,7 +71,7 @@ public final class MapGenerator {
         new PrimitivesMapGenerator.EnemyMapPartGenerator(world, runner);
 
     mMapPartGenerators.add(new FirstSequenceGenerator(coinGenerator, enemyGenerator));
-    //mMapPartGenerators.add(new AnastasiaSequenceGenerator(coinGenerator, enemyGenerator));
+    mMapPartGenerators.add(new AnastasiaSequenceGenerator(coinGenerator, enemyGenerator));
   }
 
   public void generateRandomActors() {

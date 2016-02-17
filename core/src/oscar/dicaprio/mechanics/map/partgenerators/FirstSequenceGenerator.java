@@ -29,7 +29,6 @@ public class FirstSequenceGenerator implements MapPartGenerator<BaseActor> {
 
     final List<BaseActor> actors = new ArrayList<>();
 
-    // todo(tonyshkurenko), 2/17/16: fix this, same right bound box2d error
     actors.addAll(mCoinGenerator.generate(rightBound + 2f));
     actors.addAll(mCoinGenerator.generate(GenerationUtils.getRightBound(actors) + 1.5f));
     actors.addAll(mCoinGenerator.generate(GenerationUtils.getRightBound(actors) + 1.5f));

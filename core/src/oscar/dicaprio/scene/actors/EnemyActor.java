@@ -39,7 +39,10 @@ public class EnemyActor extends BaseActor {
    */
   @Override public void act(float delta) {
     super.act(delta);
-    mBody.setLinearVelocity(getUserData().getLinearVelocity());
+    // it can be recycled before
+    if (mBody != null) {
+      mBody.setLinearVelocity(getUserData().getLinearVelocity());
+    }
   }
 
   @Override public void update() {
@@ -48,6 +51,7 @@ public class EnemyActor extends BaseActor {
     if (!BodyUtils.bodyInLeftBound(mBody)) {
       this.remove();
       mBody.getWorld().destroyBody(mBody);
+      mBody = null;
     }
   }
 

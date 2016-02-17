@@ -89,7 +89,6 @@ public class MainGameStage extends Stage implements ContactListener {
 
     counter += delta;
     if (counter >= MORE) {
-      //Gdx.app.log(TAG, "::act(delta), coin creation.");
       createSnowball();
       counter -= MORE;
     }

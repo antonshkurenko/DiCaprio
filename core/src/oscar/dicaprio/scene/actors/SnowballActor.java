@@ -31,7 +31,10 @@ public class SnowballActor extends BaseRemovableActor {
 
   @Override public void act(float delta) {
     super.act(delta);
-    mBody.setLinearVelocity(getUserData().getLinearVelocity());
+    // it can be recycled before
+    if (mBody != null) {
+      mBody.setLinearVelocity(getUserData().getLinearVelocity());
+    }
   }
 
   //region Collider
