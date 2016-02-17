@@ -168,11 +168,11 @@ public class WorldUtils {
     return body;
   }
 
-  public static Body createEnemy(World world, Enemy enemyType) {
+  public static Body createEnemy(World world, Enemy enemyType, float xPosition) {
 
     final BodyDef bodyDef = new BodyDef();
     bodyDef.type = BodyDef.BodyType.KinematicBody;
-    bodyDef.position.set(new Vector2(enemyType.getX(), enemyType.getY()));
+    bodyDef.position.set(new Vector2(xPosition, enemyType.getY()));
 
     final Body body = world.createBody(bodyDef);
     final PolygonShape shape = new PolygonShape();
@@ -197,11 +197,11 @@ public class WorldUtils {
     return body;
   }
 
-  public static Body createCoin(World world) {
+  public static Body createCoin(World world, float xPosition) {
 
     final BodyDef bodyDef = new BodyDef();
     bodyDef.type = BodyDef.BodyType.KinematicBody;
-    bodyDef.position.set(new Vector2(C.world.coin_x, C.world.coin_y));
+    bodyDef.position.set(new Vector2(xPosition, C.world.coin_y));
 
     final Body body = world.createBody(bodyDef);
     final CircleShape shape = new CircleShape();

@@ -41,6 +41,7 @@ public final class C {
     public static final Vector2 world_gravity = new Vector2(0, -10); // read descr
 
     public static final int everything_mask = 0xFFFFFFFF;
+    public static final float start_generation_bound = 25f;
 
     /**
      * Ground constants
@@ -86,7 +87,6 @@ public final class C {
     /**
      * Enemy constants
      */
-    public static final float enemy_x = 25f;
     public static final float enemy_density = runner_density;
     public static final float enemy_running_short_y = 1.5f;
     public static final float enemy_running_long_y = 2f;
@@ -97,7 +97,6 @@ public final class C {
     /**
      * Coin constants
      */
-    public static final float coin_x = 25f;
     public static final float coin_y = 1.5f;
     public static final float coin_density = runner_density;
     public static final float coin_diameter = 1f;

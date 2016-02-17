@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import oscar.dicaprio.mechanics.map.MapGenerator;
 import oscar.dicaprio.mechanics.utils.BodyUtils;
 import oscar.dicaprio.mechanics.utils.WorldUtils;
 import oscar.dicaprio.mechanics.enemies.Enemy;
@@ -54,11 +55,6 @@ public class MainGameStage extends Stage implements ContactListener {
   // Temp renderer
   private final Box2DDebugRenderer mRenderer = new Box2DDebugRenderer();
 
-  private final EnemyGenerator mEnemyGenerator = new EnemyGenerator();
-
-  private final List<Removable> mRemovables = new ArrayList<>();
-  private final List<EnemyActor> mEnemies = new ArrayList<>();
-
   private OrthographicCamera mCamera;
 
   private World mWorld;
@@ -75,8 +71,7 @@ public class MainGameStage extends Stage implements ContactListener {
     setUpWorld();
     setUpCamera();
     setUpTouchControlAreas();
-
-    createEnemy();
+    setUpMapGenerator();
   }
 
   // todo(tonyshkurenko), 2/11/16: never do the same
@@ -87,17 +82,18 @@ public class MainGameStage extends Stage implements ContactListener {
   @Override public void act(float delta) {
     super.act(delta);
 
+    final MapGenerator generator = MapGenerator.getInstance();
+    if(generator.getRightBound() < C.world.start_generation_bound * 2) {
+      generator.generateRandomActors();
+    }
+
     counter += delta;
     if (counter >= MORE) {
       //Gdx.app.log(TAG, "::act(delta), coin creation.");
-      createCoin();
       createSnowball();
       counter -= MORE;
     }
 
-    updateEnemies();
-
-    updateRemovables();
     // Fixed timestep
     mAccumulator += delta;
 
@@ -114,6 +110,16 @@ public class MainGameStage extends Stage implements ContactListener {
     super.draw();
     mRenderer.render(mWorld, mCamera.combined);
   }
+
+  //region Getters and setters
+  public World getWorld() {
+    return mWorld;
+  }
+
+  public RunnerActor getRunner() {
+    return mRunner;
+  }
+  //endregion
 
   //region Implements InputProcessor
 
@@ -246,68 +252,16 @@ public class MainGameStage extends Stage implements ContactListener {
             getCamera().viewportHeight);
     Gdx.input.setInputProcessor(this);
   }
+
+  private void setUpMapGenerator() {
+    MapGenerator.init(this);
+  }
   //endregion
 
   //region Util step methods
-  private void createEnemy() {
-
-    final Enemy enemyType = mEnemyGenerator.getRandomEnemy();
-    final EnemyActor enemy = new EnemyActor(WorldUtils.createEnemy(mWorld, enemyType), enemyType,
-        new Vector2(C.world.enemy_linear_velocity).sub(mRunner.getUserData()
-            .getLinearVelocity()));
-
-    mRunner.getUserData().attachVelocityChangeObserver(enemy.getUserData());
-    addActor(enemy);
-    mEnemies.add(enemy);
-  }
-
-  private void createCoin() {
-    final CoinActor coin = new CoinActor(WorldUtils.createCoin(mWorld),
-        new Vector2(C.world.coin_linear_velocity).sub(mRunner.getUserData().getLinearVelocity()));
-
-    mRunner.getUserData().attachVelocityChangeObserver(coin.getUserData());
-    addActor(coin);
-    mRemovables.add(coin);
-  }
-
   private void createSnowball() {
     final SnowballActor snowball = SnowballActor.createRandom(WorldUtils.createSnowball(mWorld));
     addActor(snowball);
-    mRemovables.add(snowball);
-  }
-
-  private void updateRemovables() {
-    final Iterator<Removable> iter = mRemovables.iterator();
-    while (iter.hasNext()) {
-      final Removable removable = iter.next();
-      if (removable.isRemovable()) {
-        iter.remove();
-        final BaseActor baseActor = (BaseActor) removable;
-        getActors().removeValue(baseActor, false);
-        mWorld.destroyBody(baseActor.getBody());
-      }
-    }
-  }
-
-  private void updateEnemies() {
-
-    boolean addNew = false; // temp
-
-    final Iterator<EnemyActor> iter = mEnemies.iterator();
-    while (iter.hasNext()) {
-      final EnemyActor enemy = iter.next();
-      if (!BodyUtils.bodyInLeftBound(enemy.getBody())) {
-        iter.remove();
-        getActors().removeValue(enemy, false);
-        mWorld.destroyBody(enemy.getBody());
-
-        addNew = true;
-      }
-    }
-
-    if (addNew) {
-      createEnemy();
-    }
   }
   //endregion
 }

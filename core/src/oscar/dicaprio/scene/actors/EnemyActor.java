@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import oscar.dicaprio.mechanics.userdata.EnemyUserData;
 import oscar.dicaprio.mechanics.enemies.Enemy;
+import oscar.dicaprio.mechanics.utils.BodyUtils;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -39,6 +40,15 @@ public class EnemyActor extends BaseActor {
   @Override public void act(float delta) {
     super.act(delta);
     mBody.setLinearVelocity(getUserData().getLinearVelocity());
+  }
+
+  @Override public void update() {
+    super.update();
+
+    if (!BodyUtils.bodyInLeftBound(mBody)) {
+      this.remove();
+      mBody.getWorld().destroyBody(mBody);
+    }
   }
 
   //region Collider

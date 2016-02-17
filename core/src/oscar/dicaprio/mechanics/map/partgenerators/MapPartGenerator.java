@@ -1,5 +1,6 @@
-package oscar.dicaprio.mechanics.map;
+package oscar.dicaprio.mechanics.map.partgenerators;
 
+import java.util.List;
 import oscar.dicaprio.scene.actors.BaseActor;
 
 /**
@@ -9,14 +10,14 @@ import oscar.dicaprio.scene.actors.BaseActor;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
-public interface MapPart {
+public interface MapPartGenerator<T extends BaseActor> {
 
   /**
-   * Generate smth to the map.
+   * Generate list of smth to the map.
    * Enemy, coin, sequence w/e
    *
    * @param rightBound start X position for this Map Part
-   * @return last generated actor
+   * @return list of the generated actors
    */
-  BaseActor generate(float rightBound);
+  List<T> generate(float rightBound);
 }
