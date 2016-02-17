@@ -12,6 +12,10 @@ import oscar.dicaprio.scene.actors.RunnerActor;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Slows runner.
+ */
 public class RelativeSlowBuff extends RelativeActionBuff {
 
   private static final String TAG = RelativeSlowBuff.class.getSimpleName();

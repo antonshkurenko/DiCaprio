@@ -71,6 +71,11 @@ public class RunnerUserData extends UserData {
     return new Vector2(mForwardLinearVelocity);
   }
 
+  /**
+   * Sets new forward speed and notifies about it
+   *
+   * @param forwardLinearVelocity new speed
+   */
   public void setForwardLinearVelocity(Vector2 forwardLinearVelocity) {
     notifyVelocityObservers(new Vector2(mForwardLinearVelocity).sub(forwardLinearVelocity), true);
     mForwardLinearVelocity.set(forwardLinearVelocity);
@@ -80,6 +85,11 @@ public class RunnerUserData extends UserData {
     return new Vector2(mBackwardLinearVelocity);
   }
 
+  /**
+   * Sets new backward speed and notifies about it
+   *
+   * @param backwardLinearVelocity new speed
+   */
   public void setBackwardLinearVelocity(Vector2 backwardLinearVelocity) {
     notifyVelocityObservers(new Vector2(mBackwardLinearVelocity).sub(backwardLinearVelocity),
         false);

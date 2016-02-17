@@ -76,7 +76,6 @@ public final class C {
     public static final float runner_gravity_scale = 3f;
     public static final Vector2 runner_jumping_linear_impulse = new Vector2(0, 13f); // read descr
     // dodging constants
-    public static final float runner_dodge_x = 6.5f;
     public static final float runner_dodge_y = 1.5f;
     // hit constants
     public static final float runner_hit_angular_impulse = 10f;
