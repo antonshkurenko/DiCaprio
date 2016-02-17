@@ -108,7 +108,7 @@ public final class C {
     /**
      * Snowball constants
      */
-    public static final float snowball_x = 2f;
+    public static final float snowball_x = 1f;
     public static final float snowball_y = 5f;
     public static final float snowball_density = runner_density;
     public static final float snowball_diameter = 0.5f;
