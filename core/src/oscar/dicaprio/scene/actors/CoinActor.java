@@ -3,7 +3,7 @@ package oscar.dicaprio.scene.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import oscar.dicaprio.mechanics.box2d.CoinUserData;
+import oscar.dicaprio.mechanics.userdata.CoinUserData;
 import oscar.dicaprio.utils.C;
 
 /**
@@ -28,7 +28,10 @@ public class CoinActor extends BaseRemovableActor {
 
   @Override public void act(float delta) {
     super.act(delta);
-    mBody.setLinearVelocity(getUserData().getLinearVelocity());
+    // it can be recycled before
+    if (mBody != null) {
+      mBody.setLinearVelocity(getUserData().getLinearVelocity());
+    }
   }
 
   //region Collider

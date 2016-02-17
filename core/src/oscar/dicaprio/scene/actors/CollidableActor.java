@@ -1,7 +1,6 @@
 package oscar.dicaprio.scene.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import oscar.dicaprio.mechanics.box2d.SnowballUserData;
 
 /**
  * Created by: Anton Shkurenko (cullycross)

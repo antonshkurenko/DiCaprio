@@ -1,6 +1,4 @@
-package oscar.dicaprio.mechanics.physics.enemies;
-
-import oscar.dicaprio.utils.C;
+package oscar.dicaprio.mechanics.enemies;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -9,19 +7,17 @@ import oscar.dicaprio.utils.C;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
-public final class SmallFlyingEnemyFactory extends AbstractEnemyFactory {
+public final class WideEnemyFactory extends AbstractEnemyFactory {
 
   /**
-   * ___
-   * |_|
-   *
-   * ---
+   * _____
+   * | | |
+   * -----
    */
-
 
   @Override protected Enemy createEnemy() {
     return new Enemy.Builder()
-        .setY(C.world.enemy_flying_y)
+        .setWidth(2f)
         .createEnemy();
   }
 }

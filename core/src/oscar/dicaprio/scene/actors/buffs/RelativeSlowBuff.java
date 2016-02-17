@@ -2,7 +2,7 @@ package oscar.dicaprio.scene.actors.buffs;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
-import oscar.dicaprio.mechanics.box2d.RunnerUserData;
+import oscar.dicaprio.mechanics.userdata.RunnerUserData;
 import oscar.dicaprio.scene.actors.RunnerActor;
 
 /**

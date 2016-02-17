@@ -1,4 +1,4 @@
-package oscar.dicaprio.mechanics.box2d;
+package oscar.dicaprio.mechanics.userdata;
 
 /**
  * Created by: Anton Shkurenko (cullycross)

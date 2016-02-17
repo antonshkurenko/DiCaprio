@@ -1,4 +1,4 @@
-package oscar.dicaprio.mechanics.physics.enemies;
+package oscar.dicaprio.mechanics.enemies;
 
 import oscar.dicaprio.utils.C;
 
@@ -17,14 +17,12 @@ import oscar.dicaprio.utils.C;
 public class Enemy {
   protected float mWidth;
   protected float mHeight;
-  protected float mX;
   protected float mY;
   protected float mDensity;
 
-  protected Enemy(float mWidth, float mHeight, float mX, float mY, float mDensity) {
+  protected Enemy(float mWidth, float mHeight, float mY, float mDensity) {
     this.mWidth = mWidth;
     this.mHeight = mHeight;
-    this.mX = mX;
     this.mY = mY;
     this.mDensity = mDensity;
   }
@@ -36,10 +34,6 @@ public class Enemy {
 
   public float getHeight() {
     return mHeight;
-  }
-
-  public float getX() {
-    return mX;
   }
 
   public float getY() {
@@ -54,7 +48,6 @@ public class Enemy {
   public static class Builder {
     private float mWidth = 1f;
     private float mHeight = 1f;
-    private float mX = C.world.enemy_x;
     private float mY = C.world.enemy_running_short_y;
     private float mDensity = C.world.enemy_density;
 
@@ -65,11 +58,6 @@ public class Enemy {
 
     public Builder setHeight(float height) {
       this.mHeight = height;
-      return this;
-    }
-
-    public Builder setX(float x) {
-      this.mX = x;
       return this;
     }
 
@@ -84,7 +72,7 @@ public class Enemy {
     }
 
     public Enemy createEnemy() {
-      return new Enemy(mWidth, mHeight, mX, mY, mDensity);
+      return new Enemy(mWidth, mHeight, mY, mDensity);
     }
   }
 }

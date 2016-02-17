@@ -1,25 +1,24 @@
-package oscar.dicaprio.mechanics.box2d;
+package oscar.dicaprio.mechanics.userdata;
+
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
  * Project: DiCaprio
- * Date: 2/11/16
+ * Date: 2/9/16
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
 
-import com.badlogic.gdx.math.Vector2;
-import oscar.dicaprio.utils.C;
-
 /**
  * Class, that describes physical behavior and parameters of the enemy
  */
-public class CoinUserData extends UserData implements RunnerUserData.OnVelocityChangeObserver {
+public class EnemyUserData extends UserData implements RunnerUserData.OnVelocityChangeObserver{
 
   private Vector2 mLinearVelocity;
 
-  public CoinUserData(float diameter, Vector2 startSpeed) {
-    super(diameter, diameter);
+  public EnemyUserData(float width, float height, Vector2 startSpeed) {
+    super(width, height);
     mLinearVelocity = new Vector2(startSpeed);
   }
 

@@ -17,6 +17,17 @@ public abstract class BaseRemovableActor extends BaseActor implements Removable 
     super(body);
   }
 
+  @Override public void update() {
+    super.update();
+
+    if (isRemovable()) {
+      this.remove();
+      mBody.getWorld().destroyBody(mBody);
+      mBody = null;
+    }
+  }
+
+  //region Implements Removable
   @Override public void setRemovable() {
     mIsRemovable = true;
   }
@@ -24,4 +35,5 @@ public abstract class BaseRemovableActor extends BaseActor implements Removable 
   @Override public boolean isRemovable() {
     return mIsRemovable;
   }
+  //endregion
 }

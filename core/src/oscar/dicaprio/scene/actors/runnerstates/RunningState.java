@@ -1,7 +1,7 @@
 package oscar.dicaprio.scene.actors.runnerstates;
 
 import com.badlogic.gdx.physics.box2d.Body;
-import oscar.dicaprio.mechanics.box2d.RunnerUserData;
+import oscar.dicaprio.mechanics.userdata.RunnerUserData;
 import oscar.dicaprio.scene.actors.RunnerActor;
 import oscar.dicaprio.utils.C;
 

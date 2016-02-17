@@ -1,5 +1,6 @@
-package oscar.dicaprio.mechanics.physics;
+package oscar.dicaprio.mechanics.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -8,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import oscar.dicaprio.mechanics.physics.enemies.Enemy;
+import oscar.dicaprio.mechanics.enemies.Enemy;
 import oscar.dicaprio.utils.C;
 
 /**
@@ -19,6 +20,8 @@ import oscar.dicaprio.utils.C;
  * Follow me: @tonyshkurenko
  */
 public class WorldUtils {
+
+  private static final String TAG = WorldUtils.class.getSimpleName();
 
   /**
    * Physics coords
@@ -168,13 +171,15 @@ public class WorldUtils {
     return body;
   }
 
-  public static Body createEnemy(World world, Enemy enemyType) {
+  public static Body createEnemy(World world, Enemy enemyType, float xPosition) {
 
     final BodyDef bodyDef = new BodyDef();
     bodyDef.type = BodyDef.BodyType.KinematicBody;
-    bodyDef.position.set(new Vector2(enemyType.getX(), enemyType.getY()));
+    bodyDef.position.set(new Vector2(xPosition, enemyType.getY()));
 
+    Gdx.app.log(TAG, "Before enemy creation. Position = " + xPosition);
     final Body body = world.createBody(bodyDef);
+    Gdx.app.log(TAG, "After enemy creation.");
     final PolygonShape shape = new PolygonShape();
 
     final float enemyWidth = enemyType.getWidth();
@@ -197,11 +202,11 @@ public class WorldUtils {
     return body;
   }
 
-  public static Body createCoin(World world) {
+  public static Body createCoin(World world, float xPosition) {
 
     final BodyDef bodyDef = new BodyDef();
     bodyDef.type = BodyDef.BodyType.KinematicBody;
-    bodyDef.position.set(new Vector2(C.world.coin_x, C.world.coin_y));
+    bodyDef.position.set(new Vector2(xPosition, C.world.coin_y));
 
     final Body body = world.createBody(bodyDef);
     final CircleShape shape = new CircleShape();

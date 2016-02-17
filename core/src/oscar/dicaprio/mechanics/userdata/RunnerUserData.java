@@ -1,4 +1,4 @@
-package oscar.dicaprio.mechanics.box2d;
+package oscar.dicaprio.mechanics.userdata;
 
 import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;

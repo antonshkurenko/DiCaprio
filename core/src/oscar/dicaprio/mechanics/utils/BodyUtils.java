@@ -1,4 +1,4 @@
-package oscar.dicaprio.mechanics.physics;
+package oscar.dicaprio.mechanics.utils;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import oscar.dicaprio.scene.actors.BaseActor;

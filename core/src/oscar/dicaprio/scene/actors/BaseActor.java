@@ -2,7 +2,8 @@ package oscar.dicaprio.scene.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
-import oscar.dicaprio.mechanics.box2d.UserData;
+import oscar.dicaprio.mechanics.map.MapGenerator;
+import oscar.dicaprio.mechanics.userdata.UserData;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -19,7 +20,7 @@ public abstract class BaseActor extends CollidableActor {
 
   private static final String TAG = BaseActor.class.getSimpleName();
 
-  protected final Body mBody;
+  protected Body mBody;
   protected UserData mUserData;
 
   public BaseActor(Body body) {
@@ -31,6 +32,20 @@ public abstract class BaseActor extends CollidableActor {
 
   public Body getBody() {
     return mBody;
+  }
+
+  @Override public void act(float delta) {
+    super.act(delta);
+    update();
+  }
+
+  public void update() {
+
+  }
+
+  @Override public boolean remove() {
+    MapGenerator.getInstance().removeActor(this);
+    return super.remove();
   }
 
   //region Collider
