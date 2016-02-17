@@ -166,9 +166,8 @@ public class MainGameStage extends Stage implements ContactListener {
       final BaseActor aActor = ((BaseActor) a.getUserData());
       final BaseActor bActor = ((BaseActor) b.getUserData());
       if (aActor != null && bActor != null) {
-        Gdx.app.log(TAG,
-            "Before collision: aActor = " + aActor.getClass().getSimpleName() + ", bActor = "
-                + bActor.getClass().getSimpleName());
+
+        //Gdx.app.log(TAG, "Before collision: aActor = " + aActor.getClass().getSimpleName() + ", bActor = " + bActor.getClass().getSimpleName());
 
         aActor.collide(bActor);
       }

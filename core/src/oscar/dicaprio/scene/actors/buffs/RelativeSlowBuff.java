@@ -1,11 +1,9 @@
 package oscar.dicaprio.scene.actors.buffs;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import oscar.dicaprio.mechanics.box2d.RunnerUserData;
 import oscar.dicaprio.scene.actors.RunnerActor;
-import oscar.dicaprio.utils.C;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -42,7 +40,6 @@ public class RelativeSlowBuff extends RelativeActionBuff {
       final Vector2 slow = new Vector2(mMaxSlow).scl(percentDelta);
 
       runner.setBackwardLinearVelocity(runner.getBackwardLinearVelocity().sub(slow));
-
     } catch (ClassCastException e) {
       throw new RuntimeException("SlowBuff if applicable only to the RunnerActor.");
     }
@@ -53,9 +50,7 @@ public class RelativeSlowBuff extends RelativeActionBuff {
 
     try {
       final RunnerUserData runner = ((RunnerActor) actor).getUserData();
-      runner.setBackwardLinearVelocity(
-          runner.getBackwardLinearVelocity().add(mMaxSlow));
-
+      runner.setBackwardLinearVelocity(runner.getBackwardLinearVelocity().add(mMaxSlow));
     } catch (ClassCastException e) {
       throw new RuntimeException("SlowBuff if applicable only to the RunnerActor.");
     }

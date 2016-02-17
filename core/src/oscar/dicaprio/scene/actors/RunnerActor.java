@@ -3,7 +3,6 @@ package oscar.dicaprio.scene.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import oscar.dicaprio.mechanics.box2d.RunnerUserData;
-import oscar.dicaprio.scene.actors.runnerstates.AbstractAliveState;
 import oscar.dicaprio.scene.actors.runnerstates.State;
 import oscar.dicaprio.scene.actors.runnerstates.StatesHolder;
 import oscar.dicaprio.utils.C;
@@ -46,7 +45,17 @@ public class RunnerActor extends BaseActor {
      * keep jumping velocity, to save jump state
      * and move player forward or backward, related on velocity
      */
-    mBody.setLinearVelocity(getUserData().getLinearVelocity().x, mBody.getLinearVelocity().y);
+
+    float velocityX = getUserData().getLinearVelocity().x;
+
+    /**
+     * If runner isn't slowed, speed up him to get start position
+     */
+    if (mBody.getPosition().x < C.world.runner_x && velocityX <= 0.01f && velocityX >= -0.01f) {
+      velocityX = 0.4f;
+    }
+
+    mBody.setLinearVelocity(velocityX, mBody.getLinearVelocity().y);
   }
 
   //region Handling by state
@@ -61,15 +70,15 @@ public class RunnerActor extends BaseActor {
 
   //region Getters and setters
   public void setState(State state) {
+
+    Gdx.app.log(TAG,
+        "State changed from " + mState.getClass().getSimpleName() + " to " + state.getClass()
+            .getSimpleName());
     mState = state;
   }
 
   public StatesHolder getStatesHolder() {
     return mStatesHolder;
-  }
-
-  public boolean isAlive() {
-    return mState instanceof AbstractAliveState;
   }
   //endregion
 
