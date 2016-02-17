@@ -1,5 +1,6 @@
 package oscar.dicaprio.mechanics.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -19,6 +20,8 @@ import oscar.dicaprio.utils.C;
  * Follow me: @tonyshkurenko
  */
 public class WorldUtils {
+
+  private static final String TAG = WorldUtils.class.getSimpleName();
 
   /**
    * Physics coords
@@ -174,7 +177,9 @@ public class WorldUtils {
     bodyDef.type = BodyDef.BodyType.KinematicBody;
     bodyDef.position.set(new Vector2(xPosition, enemyType.getY()));
 
+    Gdx.app.log(TAG, "Before enemy creation. Position = " + xPosition);
     final Body body = world.createBody(bodyDef);
+    Gdx.app.log(TAG, "After enemy creation.");
     final PolygonShape shape = new PolygonShape();
 
     final float enemyWidth = enemyType.getWidth();
@@ -203,7 +208,9 @@ public class WorldUtils {
     bodyDef.type = BodyDef.BodyType.KinematicBody;
     bodyDef.position.set(new Vector2(xPosition, C.world.coin_y));
 
+    Gdx.app.log(TAG, "Before coin creation. Position = " + xPosition);
     final Body body = world.createBody(bodyDef);
+    Gdx.app.log(TAG, "After coin creation.");
     final CircleShape shape = new CircleShape();
 
     /**

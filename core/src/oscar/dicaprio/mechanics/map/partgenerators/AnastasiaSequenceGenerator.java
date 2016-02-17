@@ -3,8 +3,6 @@ package oscar.dicaprio.mechanics.map.partgenerators;
 import java.util.ArrayList;
 import java.util.List;
 import oscar.dicaprio.mechanics.map.GenerationUtils;
-import oscar.dicaprio.mechanics.map.partgenerators.MapPartGenerator;
-import oscar.dicaprio.mechanics.map.partgenerators.PrimitivesMapGenerator;
 import oscar.dicaprio.scene.actors.BaseActor;
 
 /**
@@ -14,12 +12,18 @@ import oscar.dicaprio.scene.actors.BaseActor;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
-public class FirstSequenceGenerator implements MapPartGenerator<BaseActor> {
+
+/**
+ *
+ * - 1.5 - Coin - 1.5 - Coin - 1.5 - Coin - 4 - Enemy
+ *
+ */
+public class AnastasiaSequenceGenerator implements MapPartGenerator<BaseActor> {
 
   private final PrimitivesMapGenerator.CoinMapPartGenerator mCoinGenerator;
   private final PrimitivesMapGenerator.EnemyMapPartGenerator mEnemyGenerator;
 
-  public FirstSequenceGenerator(PrimitivesMapGenerator.CoinMapPartGenerator coinGenerator,
+  public AnastasiaSequenceGenerator(PrimitivesMapGenerator.CoinMapPartGenerator coinGenerator,
       PrimitivesMapGenerator.EnemyMapPartGenerator enemyGenerator) {
     mCoinGenerator = coinGenerator;
     mEnemyGenerator = enemyGenerator;
@@ -29,14 +33,11 @@ public class FirstSequenceGenerator implements MapPartGenerator<BaseActor> {
 
     final List<BaseActor> actors = new ArrayList<>();
 
-    // todo(tonyshkurenko), 2/17/16: fix this, same right bound box2d error
     actors.addAll(mCoinGenerator.generate(rightBound + 2f));
     actors.addAll(mCoinGenerator.generate(GenerationUtils.getRightBound(actors) + 1.5f));
     actors.addAll(mCoinGenerator.generate(GenerationUtils.getRightBound(actors) + 1.5f));
     actors.addAll(mCoinGenerator.generate(GenerationUtils.getRightBound(actors) + 1.5f));
-    actors.addAll(mCoinGenerator.generate(GenerationUtils.getRightBound(actors) + 1.5f));
-    actors.addAll(mCoinGenerator.generate(GenerationUtils.getRightBound(actors) + 1.5f));
-    actors.addAll(mEnemyGenerator.generate(GenerationUtils.getRightBound(actors) + 2f));
+    actors.addAll(mEnemyGenerator.generate(GenerationUtils.getRightBound(actors) + 4f));
 
     return actors;
   }

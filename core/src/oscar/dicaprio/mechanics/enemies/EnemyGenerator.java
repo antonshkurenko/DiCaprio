@@ -37,11 +37,11 @@ public final class EnemyGenerator {
   //region Init methods
   private void initFactories() {
     mEnemyFactories.add(new SmallEnemyFactory());
-    mEnemyFactories.add(new LongEnemyFactory());
-    mEnemyFactories.add(new WideEnemyFactory());
-    mEnemyFactories.add(new BigEnemyFactory());
-    mEnemyFactories.add(new SmallFlyingEnemyFactory());
-    mEnemyFactories.add(new WideFlyingEnemyFactory());
+    //mEnemyFactories.add(new LongEnemyFactory());
+    //mEnemyFactories.add(new WideEnemyFactory());
+    //mEnemyFactories.add(new BigEnemyFactory());
+    //mEnemyFactories.add(new SmallFlyingEnemyFactory());
+    //mEnemyFactories.add(new WideFlyingEnemyFactory());
   }
   //endregion
 }

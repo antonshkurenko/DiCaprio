@@ -1,10 +1,12 @@
 package oscar.dicaprio.mechanics.map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import oscar.dicaprio.mechanics.map.partgenerators.AnastasiaSequenceGenerator;
 import oscar.dicaprio.mechanics.map.partgenerators.FirstSequenceGenerator;
 import oscar.dicaprio.mechanics.map.partgenerators.MapPartGenerator;
 import oscar.dicaprio.mechanics.map.partgenerators.PrimitivesMapGenerator;
@@ -25,6 +27,8 @@ import oscar.dicaprio.utils.C;
  * Generates random sequence for map, based on generators in the list
  */
 public final class MapGenerator {
+
+  private static final String TAG = MapGenerator.class.getSimpleName();
 
   private final List<MapPartGenerator<BaseActor>> mMapPartGenerators = new ArrayList<>();
 
@@ -67,9 +71,12 @@ public final class MapGenerator {
         new PrimitivesMapGenerator.EnemyMapPartGenerator(world, runner);
 
     mMapPartGenerators.add(new FirstSequenceGenerator(coinGenerator, enemyGenerator));
+    //mMapPartGenerators.add(new AnastasiaSequenceGenerator(coinGenerator, enemyGenerator));
   }
 
   public void generateRandomActors() {
+    Gdx.app.log(TAG, "Before generating random actors.");
+
     final MapPartGenerator<BaseActor> randomGenerator =
         mMapPartGenerators.get(mRandom.nextInt(mMapPartGenerators.size()));
     final List<BaseActor> actors = randomGenerator.generate(getRightBound());
@@ -78,6 +85,7 @@ public final class MapGenerator {
     for(BaseActor actor : actors) {
       mStage.addActor(actor);
     }
+    Gdx.app.log(TAG, "After generating random actors.");
   }
 
   public void removeActor(BaseActor actor) {
