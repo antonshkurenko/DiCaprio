@@ -1,6 +1,7 @@
 package oscar.dicaprio.scene.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import oscar.dicaprio.mechanics.box2d.SnowballUserData;
 
 /**
  * Created by: Anton Shkurenko (cullycross)
@@ -39,6 +40,14 @@ public abstract class CollidableActor extends Actor {
 
   public void collideTo(CoinActor coin) {
     collide(coin);
+  }
+
+  public void collideTo(IcebergActor iceberg) {
+    collide(iceberg);
+  }
+
+  public void collideTo(SnowballActor snowball) {
+    collide(snowball);
   }
 
   public void collideTo(RunnerActor runner) {

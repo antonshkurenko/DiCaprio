@@ -20,6 +20,7 @@ public abstract class AbstractAliveState implements State {
   @Override public void handleEvent(RunnerActor runner, int eventType) {
     switch (eventType) {
       case C.event.event_collision_runner_with_enemy:
+      case C.event.event_collision_runner_with_iceberg:
         die(runner);
         break;
       case C.event.event_collision_runner_with_coin:

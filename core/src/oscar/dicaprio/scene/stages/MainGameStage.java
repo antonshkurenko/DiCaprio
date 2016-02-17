@@ -13,6 +13,9 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import oscar.dicaprio.mechanics.physics.BodyUtils;
 import oscar.dicaprio.mechanics.physics.WorldUtils;
 import oscar.dicaprio.mechanics.physics.enemies.Enemy;
@@ -21,13 +24,18 @@ import oscar.dicaprio.scene.actors.BaseActor;
 import oscar.dicaprio.scene.actors.CoinActor;
 import oscar.dicaprio.scene.actors.EnemyActor;
 import oscar.dicaprio.scene.actors.GroundActor;
+import oscar.dicaprio.scene.actors.IcebergActor;
+import oscar.dicaprio.scene.actors.Removable;
 import oscar.dicaprio.scene.actors.RunnerActor;
+import oscar.dicaprio.scene.actors.SnowballActor;
 import oscar.dicaprio.utils.C;
 
 /**
- * Created by: Anton Shkurenko (cullycross) Project: DiCaprio Date: 2/8/16 Code style:
- * SquareAndroid
- * (https://github.com/square/java-code-styles) Follow me: @tonyshkurenko
+ * Created by: Anton Shkurenko (cullycross)
+ * Project: DiCaprio
+ * Date: 2/8/16
+ * Code style: SquareAndroid (https://github.com/square/java-code-styles)
+ * Follow me: @tonyshkurenko
  */
 public class MainGameStage extends Stage implements ContactListener {
 
@@ -35,7 +43,6 @@ public class MainGameStage extends Stage implements ContactListener {
 
   // This will be our viewport measurements while working with the debug renderer
   private static final int VIEWPORT_WIDTH = 20;
-  //private static final int VIEWPORT_WIDTH = 40;
   private static final int VIEWPORT_HEIGHT = 13;
 
   // Each Box2d step will simulate TIME_STEP seconds step in real life
@@ -49,10 +56,13 @@ public class MainGameStage extends Stage implements ContactListener {
 
   private final EnemyGenerator mEnemyGenerator = new EnemyGenerator();
 
+  private final List<Removable> mRemovables = new ArrayList<>();
+
   private OrthographicCamera mCamera;
 
   private World mWorld;
   private GroundActor mGround;
+  private IcebergActor mIceberg;
   private RunnerActor mRunner;
 
   private float mAccumulator = 0f;
@@ -80,7 +90,19 @@ public class MainGameStage extends Stage implements ContactListener {
     if (counter >= MORE) {
       //Gdx.app.log(TAG, "::act(delta), coin creation.");
       createCoin();
+      createSnowball();
       counter -= MORE;
+    }
+
+    final Iterator<Removable> iter = mRemovables.iterator();
+    while (iter.hasNext()) {
+      final Removable removable = iter.next();
+      if (removable.isRemovable()) {
+        iter.remove();
+        final BaseActor baseActor = (BaseActor) removable;
+        getActors().removeValue(baseActor, false);
+        mWorld.destroyBody(baseActor.getBody());
+      }
     }
 
     final Array<Body> bodies = new Array<>(mWorld.getBodyCount());
@@ -157,11 +179,13 @@ public class MainGameStage extends Stage implements ContactListener {
 
       final BaseActor aActor = ((BaseActor) a.getUserData());
       final BaseActor bActor = ((BaseActor) b.getUserData());
-      Gdx.app.log(TAG,
-          "Before collision: aActor = " + aActor.getClass().getSimpleName() + ", bActor = " + bActor
-              .getClass()
-              .getSimpleName());
-      aActor.collide(bActor);
+      if (aActor != null && bActor != null) {
+        Gdx.app.log(TAG,
+            "Before collision: aActor = " + aActor.getClass().getSimpleName() + ", bActor = "
+                + bActor.getClass().getSimpleName());
+
+        aActor.collide(bActor);
+      }
     } catch (ClassCastException ignored) {
 
     }
@@ -204,12 +228,18 @@ public class MainGameStage extends Stage implements ContactListener {
     mWorld = WorldUtils.createWorld();
     mWorld.setContactListener(this);
     setUpGround();
+    setUpIceberg();
     setUpRunner();
   }
 
   private void setUpGround() {
     mGround = new GroundActor(WorldUtils.createGround(mWorld));
     addActor(mGround);
+  }
+
+  private void setUpIceberg() {
+    mIceberg = new IcebergActor(WorldUtils.createIceberg(mWorld));
+    addActor(mIceberg);
   }
 
   private void setUpRunner() {
@@ -246,14 +276,9 @@ public class MainGameStage extends Stage implements ContactListener {
       destroy = true;
     }
 
-    if (BodyUtils.bodyIsCoin(body) && ((CoinActor) body.getUserData()).getUserData()
-        .isRemovable()) {
-      destroy = true;
-    }
-
     if (destroy) {
       try {
-        // Idk why, I caught te exception below
+        // Idk why, I caught the exception below
         //noinspection ConstantConditions
         final BaseActor actor = ((BaseActor) body.getUserData());
 
@@ -276,6 +301,13 @@ public class MainGameStage extends Stage implements ContactListener {
   private void createCoin() {
     final CoinActor coin = new CoinActor(WorldUtils.createCoin(mWorld));
     addActor(coin);
+    mRemovables.add(coin);
+  }
+
+  private void createSnowball() {
+    final SnowballActor snowball = SnowballActor.createRandom(WorldUtils.createSnowball(mWorld));
+    addActor(snowball);
+    mRemovables.add(snowball);
   }
   //endregion
 }
