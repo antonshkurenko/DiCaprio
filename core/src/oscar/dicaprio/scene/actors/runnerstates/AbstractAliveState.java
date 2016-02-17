@@ -1,6 +1,7 @@
 package oscar.dicaprio.scene.actors.runnerstates;
 
 import oscar.dicaprio.scene.actors.RunnerActor;
+import oscar.dicaprio.scene.actors.buffs.RelativeSlowBuff;
 import oscar.dicaprio.utils.Bank;
 import oscar.dicaprio.utils.C;
 
@@ -26,6 +27,9 @@ public abstract class AbstractAliveState implements State {
       case C.event.event_collision_runner_with_coin:
         collect(runner);
         break;
+      case C.event.event_collision_runner_with_snowball:
+        slow(runner);
+        break;
     }
   }
 
@@ -38,5 +42,9 @@ public abstract class AbstractAliveState implements State {
     // maybe smile? And collect also here, because he's alive
 
     Bank.getInstance().incrementCoins();
+  }
+
+  protected void slow(RunnerActor runner) {
+    runner.addAction(new RelativeSlowBuff(C.world.runner_max_slow_speed));
   }
 }

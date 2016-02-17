@@ -19,7 +19,7 @@ public class SnowballActor extends BaseActor implements Removable {
   private boolean mIsStriked = false;
 
   public static SnowballActor createRandom(Body body) {
-    return new SnowballActor(body, new Random().nextInt(180) - 90f);
+    return new SnowballActor(body, new Random().nextInt(100) - 60f);
   }
 
   public SnowballActor(Body body, float angle) {

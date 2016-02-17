@@ -17,13 +17,12 @@ import oscar.dicaprio.scene.actors.BaseActor;
  */
 public abstract class RelativeActionBuff extends RelativeTemporalAction {
 
-  public RelativeActionBuff(BaseActor actor, float duration) {
-    this(actor, duration, Interpolation.linear);
+  public RelativeActionBuff(float duration) {
+    this(duration, Interpolation.linear);
   }
 
-  public RelativeActionBuff(BaseActor actor, float duration, Interpolation interpolation) {
+  public RelativeActionBuff(float duration, Interpolation interpolation) {
     setDuration(duration);
     setInterpolation(interpolation);
-    setActor(actor);
   }
 }

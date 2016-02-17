@@ -21,16 +21,16 @@ public class RelativeSlowBuff extends RelativeActionBuff {
   private final Vector2 mMaxSlow;
 
   //region Constructors
-  public RelativeSlowBuff(RunnerActor actor, Vector2 slow) {
-    this(actor, slow, 4, Interpolation.linear);
+  public RelativeSlowBuff(Vector2 slow) {
+    this(slow, 3, Interpolation.linear);
   }
 
-  public RelativeSlowBuff(RunnerActor actor, Vector2 slow, float duration) {
-    this(actor, slow, duration, Interpolation.linear);
+  public RelativeSlowBuff(Vector2 slow, float duration) {
+    this(slow, duration, Interpolation.linear);
   }
 
-  public RelativeSlowBuff(RunnerActor actor, Vector2 slow, float duration, Interpolation interpolation) {
-    super(actor, duration, interpolation);
+  public RelativeSlowBuff(Vector2 slow, float duration, Interpolation interpolation) {
+    super(duration, interpolation);
     mMaxSlow = new Vector2(slow);
   }
   //endregion

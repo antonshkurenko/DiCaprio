@@ -17,12 +17,11 @@ import oscar.dicaprio.scene.actors.BaseActor;
  */
 public abstract class ActionBuff extends TemporalAction {
 
-  public ActionBuff(BaseActor actor, float duration) {
-    this(actor, duration, Interpolation.linear);
+  public ActionBuff(float duration) {
+    this(duration, Interpolation.linear);
   }
 
-  public ActionBuff(BaseActor actor, float duration, Interpolation interpolation) {
+  public ActionBuff(float duration, Interpolation interpolation) {
     super(duration, interpolation);
-    setActor(actor);
   }
 }

@@ -81,7 +81,7 @@ public final class C {
     // hit constants
     public static final float runner_hit_angular_impulse = 10f;
     // frozen constants
-    public static final Vector2 runner_max_slow_speed = new Vector2(2f, 0f);
+    public static final Vector2 runner_max_slow_speed = new Vector2(0.25f, 0f);
     public static final int runner_mask = 0x00000004;
 
     /**
