@@ -1,6 +1,7 @@
 package oscar.dicaprio.scene.actors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import oscar.dicaprio.mechanics.box2d.EnemyUserData;
@@ -22,9 +23,9 @@ public class EnemyActor extends BaseActor {
 
   private static final String TAG = EnemyActor.class.getSimpleName();
 
-  public EnemyActor(Body body, Enemy enemy) {
+  public EnemyActor(Body body, Enemy enemy, Vector2 startSpeed) {
     super(body);
-    mUserData = new EnemyUserData(enemy.getWidth(), enemy.getHeight());
+    mUserData = new EnemyUserData(enemy.getWidth(), enemy.getHeight(), startSpeed);
   }
 
   @Override public EnemyUserData getUserData() {

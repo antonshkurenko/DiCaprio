@@ -26,7 +26,7 @@ public class SnowballUserData extends UserData {
 
   //region Getters and setters
   public Vector2 getLinearVelocity() {
-    return mLinearVelocity;
+    return new Vector2(mLinearVelocity);
   }
   //endregion
 }

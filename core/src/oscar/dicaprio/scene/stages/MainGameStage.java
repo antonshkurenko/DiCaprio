@@ -3,6 +3,7 @@ package oscar.dicaprio.scene.stages;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -12,7 +13,6 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -57,6 +57,7 @@ public class MainGameStage extends Stage implements ContactListener {
   private final EnemyGenerator mEnemyGenerator = new EnemyGenerator();
 
   private final List<Removable> mRemovables = new ArrayList<>();
+  private final List<EnemyActor> mEnemies = new ArrayList<>();
 
   private OrthographicCamera mCamera;
 
@@ -94,24 +95,9 @@ public class MainGameStage extends Stage implements ContactListener {
       counter -= MORE;
     }
 
-    final Iterator<Removable> iter = mRemovables.iterator();
-    while (iter.hasNext()) {
-      final Removable removable = iter.next();
-      if (removable.isRemovable()) {
-        iter.remove();
-        final BaseActor baseActor = (BaseActor) removable;
-        getActors().removeValue(baseActor, false);
-        mWorld.destroyBody(baseActor.getBody());
-      }
-    }
+    updateEnemies();
 
-    final Array<Body> bodies = new Array<>(mWorld.getBodyCount());
-    mWorld.getBodies(bodies);
-
-    for (Body body : bodies) {
-      update(body);
-    }
-
+    updateRemovables();
     // Fixed timestep
     mAccumulator += delta;
 
@@ -264,42 +250,23 @@ public class MainGameStage extends Stage implements ContactListener {
   //endregion
 
   //region Util step methods
-  private void update(Body body) {
-
-    boolean destroy = false;
-
-    if (!BodyUtils.bodyInLeftBound(body)) {
-      if (mRunner.isAlive() && BodyUtils.bodyIsEnemy(body)) {
-        createEnemy();
-      }
-
-      destroy = true;
-    }
-
-    if (destroy) {
-      try {
-        // Idk why, I caught the exception below
-        //noinspection ConstantConditions
-        final BaseActor actor = ((BaseActor) body.getUserData());
-
-        mWorld.destroyBody(body);
-        getActors().removeValue(actor, false);
-      } catch (ClassCastException ignored) {
-
-      }
-    }
-  }
-
   private void createEnemy() {
 
     final Enemy enemyType = mEnemyGenerator.getRandomEnemy();
-    final EnemyActor enemy = new EnemyActor(WorldUtils.createEnemy(mWorld, enemyType),
-        enemyType); // todo(tonyshkurenko), 2/15/16: remove doubling
+    final EnemyActor enemy = new EnemyActor(WorldUtils.createEnemy(mWorld, enemyType), enemyType,
+        new Vector2(C.world.enemy_linear_velocity).sub(mRunner.getUserData()
+            .getLinearVelocity()));
+
+    mRunner.getUserData().attachVelocityChangeObserver(enemy.getUserData());
     addActor(enemy);
+    mEnemies.add(enemy);
   }
 
   private void createCoin() {
-    final CoinActor coin = new CoinActor(WorldUtils.createCoin(mWorld));
+    final CoinActor coin = new CoinActor(WorldUtils.createCoin(mWorld),
+        new Vector2(C.world.coin_linear_velocity).sub(mRunner.getUserData().getLinearVelocity()));
+
+    mRunner.getUserData().attachVelocityChangeObserver(coin.getUserData());
     addActor(coin);
     mRemovables.add(coin);
   }
@@ -308,6 +275,40 @@ public class MainGameStage extends Stage implements ContactListener {
     final SnowballActor snowball = SnowballActor.createRandom(WorldUtils.createSnowball(mWorld));
     addActor(snowball);
     mRemovables.add(snowball);
+  }
+
+  private void updateRemovables() {
+    final Iterator<Removable> iter = mRemovables.iterator();
+    while (iter.hasNext()) {
+      final Removable removable = iter.next();
+      if (removable.isRemovable()) {
+        iter.remove();
+        final BaseActor baseActor = (BaseActor) removable;
+        getActors().removeValue(baseActor, false);
+        mWorld.destroyBody(baseActor.getBody());
+      }
+    }
+  }
+
+  private void updateEnemies() {
+
+    boolean addNew = false; // temp
+
+    final Iterator<EnemyActor> iter = mEnemies.iterator();
+    while (iter.hasNext()) {
+      final EnemyActor enemy = iter.next();
+      if (!BodyUtils.bodyInLeftBound(enemy.getBody())) {
+        iter.remove();
+        getActors().removeValue(enemy, false);
+        mWorld.destroyBody(enemy.getBody());
+
+        addNew = true;
+      }
+    }
+
+    if (addNew) {
+      createEnemy();
+    }
   }
   //endregion
 }

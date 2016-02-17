@@ -38,7 +38,7 @@ public final class C {
     /**
      * World's gravity vector (g ~ 10)
      */
-    public static final Vector2 world_gravity = new Vector2(0, -10);
+    public static final Vector2 world_gravity = new Vector2(0, -10); // read descr
 
     public static final int everything_mask = 0xFFFFFFFF;
 
@@ -70,8 +70,8 @@ public final class C {
     public static final float runner_width = 1f;
     public static final float runner_height = 2f;
     public static final float runner_density = 0.5f;
-    public static final Vector2 runner_linear_forward_velocity = new Vector2(2f, 0f);
-    public static final Vector2 runner_linear_backward_velocity = new Vector2(2f, 0f);
+    public static final Vector2 runner_linear_forward_velocity = new Vector2(2f, 0f); // read descr
+    public static final Vector2 runner_linear_backward_velocity = new Vector2(2f, 0f); // read descr
     // jumping constants
     public static final float runner_gravity_scale = 3f;
     public static final Vector2 runner_jumping_linear_impulse = new Vector2(0, 13f); // read descr
@@ -81,7 +81,7 @@ public final class C {
     // hit constants
     public static final float runner_hit_angular_impulse = 10f;
     // frozen constants
-    public static final Vector2 runner_max_slow_speed = new Vector2(0.25f, 0f);
+    public static final Vector2 runner_max_slow_speed = new Vector2(0.25f, 0f); // read descr
     public static final int runner_mask = 0x00000004;
 
     /**

@@ -14,18 +14,28 @@ import oscar.dicaprio.utils.C;
 /**
  * Class, that describes physical behavior and parameters of the enemy
  */
-public class EnemyUserData extends UserData {
+public class EnemyUserData extends UserData implements RunnerUserData.OnVelocityChangeObserver{
 
   private Vector2 mLinearVelocity;
 
-  public EnemyUserData(float width, float height) {
+  public EnemyUserData(float width, float height, Vector2 startSpeed) {
     super(width, height);
-    mLinearVelocity = new Vector2(C.world.enemy_linear_velocity);
+    mLinearVelocity = new Vector2(startSpeed);
   }
 
   //region Getters and setters
   public Vector2 getLinearVelocity() {
-    return mLinearVelocity;
+    return new Vector2(mLinearVelocity);
+  }
+  //endregion
+
+  //region Implements RunnerUserData.OnVelocityChangeObserver
+  @Override public void onForwardSpeedChanged(RunnerUserData runnerData, Vector2 delta) {
+    // ignored
+  }
+
+  @Override public void onBackwardSpeedChanged(RunnerUserData runnerData, Vector2 delta) {
+    mLinearVelocity.sub(delta);
   }
   //endregion
 }

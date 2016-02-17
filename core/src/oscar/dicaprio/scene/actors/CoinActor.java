@@ -1,6 +1,7 @@
 package oscar.dicaprio.scene.actors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import oscar.dicaprio.mechanics.box2d.CoinUserData;
 import oscar.dicaprio.utils.C;
@@ -16,9 +17,9 @@ public class CoinActor extends BaseRemovableActor {
 
   private static final String TAG = CoinActor.class.getSimpleName();
 
-  public CoinActor(Body body) {
+  public CoinActor(Body body, Vector2 startSpeed) {
     super(body);
-    mUserData = new CoinUserData(C.world.coin_diameter);
+    mUserData = new CoinUserData(C.world.coin_diameter, startSpeed);
   }
 
   @Override public CoinUserData getUserData() {
