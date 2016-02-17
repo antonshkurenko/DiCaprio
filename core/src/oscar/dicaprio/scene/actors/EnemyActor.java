@@ -3,10 +3,8 @@ package oscar.dicaprio.scene.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import oscar.dicaprio.mechanics.box2d.EnemyUserData;
-import oscar.dicaprio.mechanics.box2d.GroundUserData;
-import oscar.dicaprio.mechanics.physics.enemies.Enemy;
+import oscar.dicaprio.mechanics.userdata.EnemyUserData;
+import oscar.dicaprio.mechanics.enemies.Enemy;
 
 /**
  * Created by: Anton Shkurenko (cullycross)

@@ -3,7 +3,7 @@ package oscar.dicaprio.scene.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import java.util.Random;
-import oscar.dicaprio.mechanics.box2d.SnowballUserData;
+import oscar.dicaprio.mechanics.userdata.SnowballUserData;
 import oscar.dicaprio.utils.C;
 
 /**

@@ -1,4 +1,4 @@
-package oscar.dicaprio.mechanics.physics.enemies;
+package oscar.dicaprio.mechanics.enemies;
 
 import oscar.dicaprio.utils.C;
 
