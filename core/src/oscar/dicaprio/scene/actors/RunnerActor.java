@@ -19,6 +19,15 @@ import oscar.dicaprio.utils.C;
 /**
  * Actor, that consists of the physical body and physical params of the runner
  */
+
+/**
+ * two speeds?
+ * one speed forward
+ * one speed back
+ *
+ * when slow back speed increment
+ * when accelerate forward speed increment?
+ */
 public class RunnerActor extends BaseActor {
 
   private static final String TAG = RunnerActor.class.getSimpleName();
@@ -33,11 +42,24 @@ public class RunnerActor extends BaseActor {
 
   @Override public RunnerUserData getUserData() {
 
-    if(mUserData == null) {
+    if (mUserData == null) {
       mUserData = new RunnerUserData(C.world.runner_width, C.world.runner_height);
     }
 
     return ((RunnerUserData) mUserData);
+  }
+
+  /**
+   * @param delta time since last frame
+   */
+  @Override public void act(float delta) {
+    super.act(delta);
+    /**
+     * it sets new speed from scratch, so
+     * keep jumping velocity, to save jump state
+     * and move player forward or backward, related on velocity
+     */
+    mBody.setLinearVelocity(getUserData().getLinearVelocity().x, mBody.getLinearVelocity().y);
   }
 
   //region Handling by state

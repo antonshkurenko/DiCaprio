@@ -16,10 +16,14 @@ import oscar.dicaprio.utils.C;
  */
 public class RunnerUserData extends UserData {
 
-  private final Vector2 mRunningPosition = new Vector2(C.world.runner_x, C.world.runner_y);
-
-  private final Vector2 mDodgePosition =
-      new Vector2(C.world.runner_dodge_x, C.world.runner_dodge_y);
+  /**
+   * to speed up not from zero, but from some value
+   */
+  private Vector2 mForwardLinearVelocity = C.world.runner_linear_forward_velocity;
+  /**
+   * to slow up not from zero, but from some value
+   */
+  private Vector2 mBackwardLinearVelocity = C.world.runner_linear_backward_velocity;
 
   private Vector2 mJumpingLinearImpulse;
 
@@ -28,7 +32,35 @@ public class RunnerUserData extends UserData {
     mJumpingLinearImpulse = C.world.runner_jumping_linear_impulse;
   }
 
+  public void resetSpeed() {
+    mForwardLinearVelocity = C.world.runner_linear_forward_velocity;
+    mBackwardLinearVelocity = C.world.runner_linear_backward_velocity;
+  }
+
   //region Getters and setters
+
+  public Vector2 getLinearVelocity() {
+
+    final Vector2 velocity = new Vector2(mForwardLinearVelocity);
+    return velocity.sub(mBackwardLinearVelocity);
+  }
+
+  public Vector2 getForwardLinearVelocity() {
+    return mForwardLinearVelocity;
+  }
+
+  public void setForwardLinearVelocity(Vector2 forwardLinearVelocity) {
+    mForwardLinearVelocity.set(forwardLinearVelocity);
+  }
+
+  public Vector2 getBackwardLinearVelocity() {
+    return mBackwardLinearVelocity;
+  }
+
+  public void setBackwardLinearVelocity(Vector2 backwardLinearVelocity) {
+    mBackwardLinearVelocity.set(backwardLinearVelocity);
+  }
+
   public Vector2 getJumpingLinearImpulse() {
     return mJumpingLinearImpulse;
   }
@@ -42,12 +74,12 @@ public class RunnerUserData extends UserData {
     return C.world.runner_hit_angular_impulse;
   }
 
-  public Vector2 getRunningPosition() {
-    return mRunningPosition;
+  public float getRunningY() {
+    return C.world.runner_y;
   }
 
-  public Vector2 getDodgePosition() {
-    return mDodgePosition;
+  public float getDodgingY() {
+    return C.world.runner_dodge_y;
   }
   //endregion
 }
