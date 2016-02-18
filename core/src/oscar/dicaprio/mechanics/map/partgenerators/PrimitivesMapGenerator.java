@@ -64,7 +64,7 @@ public final class PrimitivesMapGenerator {
     }
 
     @Override public List<CoinActor> generate(float rightBound) {
-      final CoinActor coin = createCoin(mWorld, new Vector2(C.world.enemy_linear_velocity).sub(
+      final CoinActor coin = createCoin(mWorld, new Vector2(C.world.coin_linear_velocity).sub(
           mRunnerActor.getUserData().getLinearVelocity()), rightBound);
 
       mRunnerActor.getUserData().attachVelocityChangeObserver(coin.getUserData());

@@ -29,6 +29,7 @@ import oscar.dicaprio.scene.actors.IcebergActor;
 import oscar.dicaprio.scene.actors.Removable;
 import oscar.dicaprio.scene.actors.RunnerActor;
 import oscar.dicaprio.scene.actors.SnowballActor;
+import oscar.dicaprio.scene.actors.timeactions.SnowballCreatingAction;
 import oscar.dicaprio.utils.C;
 
 /**
@@ -74,23 +75,12 @@ public class MainGameStage extends Stage implements ContactListener {
     setUpMapGenerator();
   }
 
-  // todo(tonyshkurenko), 2/11/16: never do the same
-  // just for testing coins
-  private float counter;
-  private static final float MORE = 0.5f;
-
   @Override public void act(float delta) {
     super.act(delta);
 
     final MapGenerator generator = MapGenerator.getInstance();
     if(generator.getRightBound() < C.world.start_generation_bound * 2) {
       generator.generateRandomActors();
-    }
-
-    counter += delta;
-    if (counter >= MORE) {
-      createSnowball();
-      counter -= MORE;
     }
 
     // Fixed timestep
@@ -220,6 +210,7 @@ public class MainGameStage extends Stage implements ContactListener {
     setUpGround();
     setUpIceberg();
     setUpRunner();
+    setUpSnowballs();
   }
 
   private void setUpGround() {
@@ -255,12 +246,10 @@ public class MainGameStage extends Stage implements ContactListener {
   private void setUpMapGenerator() {
     MapGenerator.init(this);
   }
-  //endregion
 
-  //region Util step methods
-  private void createSnowball() {
-    final SnowballActor snowball = SnowballActor.createRandom(WorldUtils.createSnowball(mWorld));
-    addActor(snowball);
+  private void setUpSnowballs() {
+    addAction(new SnowballCreatingAction(this));
   }
+
   //endregion
 }

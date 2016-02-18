@@ -81,7 +81,7 @@ public final class C {
     // hit constants
     public static final float runner_hit_angular_impulse = 10f;
     // frozen constants
-    public static final Vector2 runner_max_slow_speed = new Vector2(0.25f, 0f); // read descr
+    public static final Vector2 runner_max_slow_speed = new Vector2(1f, 0f); // read descr
     public static final int runner_mask = 0x00000004;
 
     /**
@@ -91,7 +91,7 @@ public final class C {
     public static final float enemy_running_short_y = 1.5f;
     public static final float enemy_running_long_y = 2f;
     public static final float enemy_flying_y = 3f;
-    public static final Vector2 enemy_linear_velocity = new Vector2(-10f, 0); // read descr
+    public static final Vector2 enemy_linear_velocity = new Vector2(-8f, 0); // read descr
     public static final int enemy_mask = 0x00000008;
 
     /**
@@ -100,7 +100,7 @@ public final class C {
     public static final float coin_y = 1.5f;
     public static final float coin_density = runner_density;
     public static final float coin_diameter = 1f;
-    public static final Vector2 coin_linear_velocity = new Vector2(-10f, 0); // read descr
+    public static final Vector2 coin_linear_velocity = new Vector2(-8f, 0); // read descr
     public static final int coin_mask = 0x00000010;
 
     /**
@@ -109,8 +109,9 @@ public final class C {
     public static final float snowball_x = 1f;
     public static final float snowball_y = 5f;
     public static final float snowball_density = runner_density;
-    public static final float snowball_diameter = 0.5f;
-    public static final Vector2 snowball_linear_velocity = new Vector2(1f, 1f); // read descr
+    public static final float snowball_diameter = 0.4f;
+    public static final int snowball_max_angle = 80;
+    public static final Vector2 snowball_linear_velocity = new Vector2(4f, 4f); // read descr
     public static final int snowball_mask = 0x00000020;
   }
 

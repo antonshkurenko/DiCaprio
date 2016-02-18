@@ -17,7 +17,8 @@ public class SnowballActor extends BaseRemovableActor {
   private static final String TAG = CoinActor.class.getSimpleName();
 
   public static SnowballActor createRandom(Body body) {
-    return new SnowballActor(body, new Random().nextInt(100) - 60f);
+    return new SnowballActor(body,
+        new Random().nextInt(C.world.snowball_max_angle) - C.world.snowball_max_angle >> 1);
   }
 
   public SnowballActor(Body body, float angle) {
