@@ -14,6 +14,13 @@ import oscar.dicaprio.scene.actors.BaseActor;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ *
+ * - 2 - Coin - 1.5 - Coin - 1.5 - Coin - 1.5 - Coin - 1.5 - Coin - 1.5 - Coin - 2 - Enemy
+ *
+ */
+
 public class FirstSequenceGenerator implements MapPartGenerator<BaseActor> {
 
   private final PrimitivesMapGenerator.CoinMapPartGenerator mCoinGenerator;
@@ -29,6 +36,7 @@ public class FirstSequenceGenerator implements MapPartGenerator<BaseActor> {
 
     final List<BaseActor> actors = new ArrayList<>();
 
+    // schema
     actors.addAll(mCoinGenerator.generate(rightBound + 2f));
     actors.addAll(mCoinGenerator.generate(GenerationUtils.getRightBound(actors) + 1.5f));
     actors.addAll(mCoinGenerator.generate(GenerationUtils.getRightBound(actors) + 1.5f));

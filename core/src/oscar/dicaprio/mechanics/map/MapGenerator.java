@@ -1,8 +1,6 @@
 package oscar.dicaprio.mechanics.map;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -75,19 +73,20 @@ public final class MapGenerator {
   }
 
   public void generateRandomActors() {
-    Gdx.app.log(TAG, "Before generating random actors.");
+    //Gdx.app.log(TAG, "Before generating random actors.");
 
     final MapPartGenerator<BaseActor> randomGenerator =
         mMapPartGenerators.get(mRandom.nextInt(mMapPartGenerators.size()));
     final List<BaseActor> actors = randomGenerator.generate(getRightBound());
     mActors.addAll(actors);
 
-    for(BaseActor actor : actors) {
+    for (BaseActor actor : actors) {
       mStage.addActor(actor);
     }
-    Gdx.app.log(TAG, "After generating random actors.");
+    //Gdx.app.log(TAG, "After generating random actors.");
   }
 
+  // I have to remove actors here too
   public void removeActor(BaseActor actor) {
     mActors.remove(actor);
   }

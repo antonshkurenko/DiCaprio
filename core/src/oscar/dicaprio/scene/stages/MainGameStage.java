@@ -250,6 +250,5 @@ public class MainGameStage extends Stage implements ContactListener {
   private void setUpSnowballs() {
     addAction(new SnowballCreatingAction(this));
   }
-
   //endregion
 }

@@ -19,6 +19,10 @@ import oscar.dicaprio.utils.C;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Holds map generators for primitives (Enemy, Coin)
+ */
 public final class PrimitivesMapGenerator {
 
   private PrimitivesMapGenerator() {

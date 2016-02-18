@@ -33,14 +33,4 @@ public class BodyUtils {
     }
     return true;
   }
-
-  public static boolean bodyOnRightHalf(Body body) {
-    try {
-      return body.getPosition().x + ((BaseActor) body.getUserData()).getUserData().getWidth() / 2
-          > 0;
-    } catch (ClassCastException ignored) {
-
-    }
-    return true;
-  }
 }

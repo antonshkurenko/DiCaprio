@@ -15,7 +15,6 @@ public final class GenerationUtils {
   private static final String TAG = GenerationUtils.class.getSimpleName();
 
   public static float getRightBound(List<BaseActor> actors) {
-
     return actors.get(actors.size() - 1).getBody().getPosition().x;
   }
 

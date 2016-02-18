@@ -15,7 +15,7 @@ import oscar.dicaprio.scene.actors.BaseActor;
 
 /**
  *
- * - 1.5 - Coin - 1.5 - Coin - 1.5 - Coin - 4 - Enemy
+ * 2 - Coin - 1.5 - Coin - 1.5 - Coin - 1.5 - Coin - 4 - Enemy
  *
  */
 public class AnastasiaSequenceGenerator implements MapPartGenerator<BaseActor> {
@@ -33,6 +33,7 @@ public class AnastasiaSequenceGenerator implements MapPartGenerator<BaseActor> {
 
     final List<BaseActor> actors = new ArrayList<>();
 
+    // schema
     actors.addAll(mCoinGenerator.generate(rightBound + 2f));
     actors.addAll(mCoinGenerator.generate(GenerationUtils.getRightBound(actors) + 1.5f));
     actors.addAll(mCoinGenerator.generate(GenerationUtils.getRightBound(actors) + 1.5f));

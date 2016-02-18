@@ -11,6 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
  * Code style: SquareAndroid (https://github.com/square/java-code-styles)
  * Follow me: @tonyshkurenko
  */
+
+/**
+ * Action that executes periodically with some delay between them
+ */
 public class TimeAction extends RepeatAction {
 
   public TimeAction(int count, float delay, Runnable action) {
