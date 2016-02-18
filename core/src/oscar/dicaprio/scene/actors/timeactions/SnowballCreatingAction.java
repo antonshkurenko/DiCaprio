@@ -18,13 +18,16 @@ public class SnowballCreatingAction extends TimeAction {
 
   /**
    * Shooting with snowballs every DELAY seconds
+   *
    * @param stage stage to apply
    */
   public SnowballCreatingAction(final MainGameStage stage) {
-    super(RepeatAction.FOREVER, DELAY, () -> {
-      final SnowballActor snowball =
-          SnowballActor.createRandom(WorldUtils.createSnowball(stage.getWorld()));
-      stage.addActor(snowball);
+    super(RepeatAction.FOREVER, DELAY, new Runnable() {
+      @Override public void run() {
+        final SnowballActor snowball =
+            SnowballActor.createRandom(WorldUtils.createSnowball(stage.getWorld()));
+        stage.addActor(snowball);
+      }
     });
   }
 }

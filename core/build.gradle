@@ -9,8 +9,3 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 eclipse.project {
     name = appName + "-core"
 }
-
-retrolambda {
-  jdk System.getenv("JAVA_HOME")
-  javaVersion JavaVersion.VERSION_1_7
-}
